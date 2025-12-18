@@ -1,29 +1,13 @@
-name = "DiscStochInf"
-uuid = "75d74e4b-8c64-4f53-9b14-e651a15bec74"
-version = "1.0.0-DEV"
-authors = ["Aditya Dendukuri (UCSB)"]
-
 [deps]
-LineSearches = "d3d80556-e9d4-5f37-9878-2ab0fcc64255"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+Catalyst = "479239e8-5488-4da2-87a7-35f2df7eef83"
+Expokit = "a1e7a1ef-7a5d-5822-a38c-be74e1bb89f4"
+ExponentialUtilities = "d4d017d3-3776-5f7e-afef-a10c40355c18"
+Interpolations = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
+JumpProcesses = "ccbc3e58-028d-4f4c-8cd5-9ae44345cda5"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-Optim = "429524aa-4258-5aef-a3af-852621145aeb"
-OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
+NLopt = "76087f3c-5699-56af-9a33-bf431cd00edd"
 PROPACK = "b169e327-5944-5131-97a6-5d3d3f0a476a"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
-SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
-
-[compat]
-LineSearches = "7.4.0"
-LinearAlgebra = "1.11.0"
-Optim = "1.13.2"
-OrdinaryDiffEq = "6.103.0"
-PROPACK = "0.5.0"
-Printf = "1.11.0"
-SparseArrays = "1.11.0"
-julia = "1.6.7"
-
-[extras]
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-
-[targets]
-test = ["Test"]
+ProgressLogging = "33c8b6b6-d38a-422a-b730-caa89a2f386c"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
