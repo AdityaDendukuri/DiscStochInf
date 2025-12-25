@@ -238,7 +238,7 @@ function run_inverse_experiment(
         X_global,
         config,
         ssa_trajs,
-         (T, distrs),
+        (T, distrs),
         windows
     )
 end
