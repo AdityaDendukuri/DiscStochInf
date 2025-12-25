@@ -140,12 +140,26 @@ function run_inverse_experiment(
         println("="^70)
     end
     
-    inferred_stoich = infer_reactions_from_trajectories(ssa_trajs)
+    inferred_stoich_raw = infer_reactions_from_trajectories(ssa_trajs)
     
     if verbose
-        println("✓ Inferred $(length(inferred_stoich)) reactions:")
-        for (i, ν) in enumerate(inferred_stoich)
+        println("✓ Inferred $(length(inferred_stoich_raw)) reactions (raw order):")
+        for (i, ν) in enumerate(inferred_stoich_raw)
             println("  R$i: $ν")
+        end
+    end
+    
+    # Match to Catalyst network order
+    if verbose
+        println("\n  Matching to Catalyst network order...")
+    end
+    
+    perm, inferred_stoich = match_stoichiometries(rn, inferred_stoich_raw)
+    
+    if verbose
+        println("✓ Matched stoichiometry (Catalyst order):")
+        for (i, ν) in enumerate(inferred_stoich)
+            println("  R$i: $ν (from inferred R$(perm[i]))")
         end
     end
     
@@ -226,20 +240,21 @@ function run_inverse_experiment(
     # Create result object
     result = OptimizationResult(learned_generators, inferred_stoich, config)
     
-    # Print comparison
+    # Print comparison (without skip_transient for now - can be added manually)
     print_rate_comparison(result, true_rates, propensity_fn, X_global)
     
     # Return comprehensive results
     return ExperimentResult(
-        rn,
+         rn,
         true_rates,
-        learned_generators,
-        inferred_stoich,
-        X_global,
-        config,
-        ssa_trajs,
-        (T, distrs),
-        windows
+         learned_generators,
+         inferred_stoich,
+         perm,  # Store permutation for rate reordering
+         X_global,
+         config,
+         ssa_trajs,
+         (T, distrs),
+         windows
     )
 end
 
@@ -261,14 +276,69 @@ function default_config()
 end
 
 """
-    build_parameter_mapping(rn, rates)
+    match_stoichiometries(catalyst_rn, inferred_stoich)
 
-Build parameter pairs for Catalyst from rate vector.
+Match inferred stoichiometry vectors to the Catalyst reaction network.
+Returns a permutation vector and reordered stoichiometry.
+
+# Returns
+- `perm`: Permutation such that inferred_stoich[perm[i]] matches catalyst reaction i
+- `reordered_stoich`: Stoichiometry in Catalyst network order
 """
-function build_parameter_mapping(rn::ReactionSystem, rates::Vector{Float64})
-    params = parameters(rn)
-    @assert length(params) == length(rates) "Number of rates must match number of parameters"
-    return [params[i] => rates[i] for i in 1:length(rates)]
+function match_stoichiometries(catalyst_rn, inferred_stoich)
+    # Extract true stoichiometry from Catalyst network
+    n_species = length(species(catalyst_rn))
+    n_reactions = length(reactions(catalyst_rn))
+    
+    true_stoich = []
+    
+    for rxn in reactions(catalyst_rn)
+        # Compute net stoichiometry: products - reactants
+        ν = zeros(Int, n_species)
+        
+        # Products
+        for (spec, coeff) in zip(rxn.products, rxn.prodstoich)
+            spec_idx = findfirst(s -> isequal(s, spec), species(catalyst_rn))
+            if spec_idx !== nothing
+                ν[spec_idx] += Int(coeff)
+            end
+        end
+        
+        # Reactants (subtract)
+        for (spec, coeff) in zip(rxn.substrates, rxn.substoich)
+            spec_idx = findfirst(s -> isequal(s, spec), species(catalyst_rn))
+            if spec_idx !== nothing
+                ν[spec_idx] -= Int(coeff)
+            end
+        end
+        
+        push!(true_stoich, ν)
+    end
+    
+    # Match inferred to true
+    perm = Int[]
+    matched_indices = Set{Int}()
+    
+    for true_ν in true_stoich
+        # Find matching inferred stoichiometry
+        match_idx = findfirst(inferred_ν -> inferred_ν == true_ν, inferred_stoich)
+        
+        if match_idx === nothing
+            error("Could not match true stoichiometry $true_ν to any inferred stoichiometry")
+        end
+        
+        if match_idx ∈ matched_indices
+            error("Stoichiometry $true_ν matched multiple reactions")
+        end
+        
+        push!(perm, match_idx)
+        push!(matched_indices, match_idx)
+    end
+    
+    # Reorder inferred stoichiometry to match Catalyst order
+    reordered_stoich = [inferred_stoich[i] for i in perm]
+    
+    return perm, reordered_stoich
 end
 
 """
@@ -313,7 +383,8 @@ function auto_detect_propensity_function(rn::ReactionSystem, stoich_vecs::Vector
         
         for (spec, coeff) in zip(rxn.substrates, rxn.substoich)
             # Find index of this species in the full species list
-      spec_idx = findfirst(s -> isequal(s, spec), species(rn))
+            # Use isequal for symbolic comparison
+            spec_idx = findfirst(s -> isequal(s, spec), species(rn))
             if spec_idx !== nothing
                 reactant_stoich[spec_idx, j] = Int(coeff)
             end

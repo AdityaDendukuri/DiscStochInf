@@ -76,7 +76,7 @@ function extract_rates_global(
     X_global_set = Set(X_global_vec)
     
     # Build mapping from global indices to local indices
-    local_idx_map = Dict{CartesianIndex{4}, Int}()
+    local_idx_map = Dict{CartesianIndex, Int}()
     for (idx, state) in enumerate(X_local)
         local_idx_map[state] = idx
     end
@@ -170,7 +170,6 @@ function extract_rates_global(
     
     return rate_stats
 end
-
 """
     extract_rates(learned_gen::LearnedGenerator, propensity_fn::PropensityFunction, 
                   stoich_vecs::Vector{Vector{Int}})
@@ -255,16 +254,21 @@ end
 
 """
     print_rate_comparison(result::OptimizationResult, true_rates::Vector{Float64},
-                         propensity_fn::PropensityFunction, global_state_space=nothing)
+                         propensity_fn::PropensityFunction, global_state_space=nothing;
+                         skip_transient=0)
 
 Print comparison of learned rates versus true rates across all windows.
 If global_state_space is provided, uses global extraction method.
+
+# Arguments
+- `skip_transient`: Number of initial windows to skip (default: 0)
 """
 function print_rate_comparison(
     result::OptimizationResult,
     true_rates::Vector{Float64},
     propensity_fn::PropensityFunction,
-    global_state_space=nothing
+    global_state_space=nothing;
+    skip_transient::Int=0
 )
     println("\n" * "="^60)
     println("RATE COMPARISON: LEARNED vs TRUE")
@@ -279,18 +283,39 @@ function print_rate_comparison(
     # Choose extraction method
     extraction_method = isnothing(global_state_space) ? "LOCAL" : "GLOBAL"
     println("\nExtraction method: $extraction_method")
+    if skip_transient > 0
+        println("Skipping first $skip_transient transient windows")
+    end
     
     # Analyze each window
     println("\n" * "-"^60)
     println("Learned rates over time:")
     println("-"^60)
     
-    for learned_gen in result.learned_generators
+    # Store rates for aggregate statistics
+    all_rates = Dict{Int, Vector{Float64}}()
+    for j in 1:length(result.inferred_stoich)
+        all_rates[j] = Float64[]
+    end
+    
+    window_start_idx = skip_transient + 1
+    
+    for (idx, learned_gen) in enumerate(result.learned_generators)
         # Use global extraction if available
         if isnothing(global_state_space)
             rate_stats = extract_rates(learned_gen, propensity_fn, result.inferred_stoich)
         else
             rate_stats = extract_rates_global(learned_gen, global_state_space, propensity_fn, result.inferred_stoich)
+        end
+        
+        # Collect rates for aggregate (after transient)
+        if idx >= window_start_idx
+            for (j, ν) in enumerate(result.inferred_stoich)
+                stats = rate_stats[j]
+                if stats.n_transitions > 0 && isfinite(stats.median)
+                    push!(all_rates[j], stats.median)
+                end
+            end
         end
         
         println("\nWindow at t=$(learned_gen.t_start):")
@@ -305,6 +330,33 @@ function print_rate_comparison(
                        "n=$(stats.n_transitions)")
             else
                 println("  R$j: NO TRANSITIONS FOUND")
+            end
+        end
+    end
+    
+    # Aggregate statistics (excluding transient)
+    if skip_transient > 0 && any(length(rates) > 0 for rates in values(all_rates))
+        println("\n" * "="^60)
+        println("AGGREGATE STATISTICS (excluding first $skip_transient windows)")
+        println("="^60)
+        
+        println("\nReaction | True | Median | Mean | Std | Rel. Error")
+        println("-"^65)
+        
+        for j in 1:length(result.inferred_stoich)
+            rates = all_rates[j]
+            true_k = true_rates[j]
+            
+            if !isempty(rates)
+                med = median(rates)
+                avg = mean(rates)
+                σ = std(rates)
+                rel_err = abs(med - true_k) / true_k * 100
+                
+                @printf("   R%-2d   | %.3f | %.3f | %.3f | %.3f | %5.1f%%\n",
+                       j, true_k, med, avg, σ, rel_err)
+            else
+                println("   R$j   | $true_k | N/A    | N/A  | N/A | N/A")
             end
         end
     end
