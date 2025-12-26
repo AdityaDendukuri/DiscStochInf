@@ -255,7 +255,7 @@ function default_config()
         λ_prob_conservation = 1e-6,
         dt_snapshot = 0.1,
         dt_window = 2.0,
-        snapshots_per_window = 10,
+        snapshots_per_window = 20,
         max_windows = 10
     )
 end

@@ -53,7 +53,7 @@ config = InverseProblemConfig(
     λ_prob_conservation = 1e-6,
     dt_snapshot = 0.1,
     dt_window = 2.0,
-    snapshots_per_window = 10,
+    snapshots_per_window = 20,
     max_windows = 10
 )
 
@@ -75,7 +75,7 @@ println("\n" * "="^60)
 println("STEP 1: GENERATING SSA TRAJECTORIES")
 println("="^60)
 
-n_trajs = 5000
+n_trajs = 10000
 ssa_trajs = generate_ssa_data(rn, u0_integers, tspan, ps, n_trajs; seed=1234)
 
 println("Generated $n_trajs trajectories")
