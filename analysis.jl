@@ -76,7 +76,7 @@ function extract_rates_global(
     X_global_set = Set(X_global_vec)
     
     # Build mapping from global indices to local indices
-    local_idx_map = Dict{CartesianIndex{4}, Int}()
+    local_idx_map = Dict{CartesianIndex, Int}()
     for (idx, state) in enumerate(X_local)
         local_idx_map[state] = idx
     end

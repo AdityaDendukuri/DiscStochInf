@@ -1,32 +1,160 @@
 """
-Visualization utilities for inverse problem results.
+SIAM-compliant visualization for ExperimentResult outputs.
 
-This module provides functions for plotting learned rates over time,
-generator properties, and comparing with true values.
+This module provides publication-quality black-and-white plots that work directly
+with the ExperimentResult structure from experiment_runner.jl.
+
+Usage:
+    result = run_inverse_experiment(rn, u0, true_rates)
+    
+    # Generate all SIAM figures
+    save_experiment_figures_siam(result, output_dir="paper_figures")
+    
+    # Or individual figures
+    fig = plot_experiment_convergence(result)
+    save("convergence.pdf", fig, pt_per_unit=1)
 """
 
 using CairoMakie
 using Statistics
+using Printf
 
-include("types.jl")
-include("analysis.jl")
+# SIAM-compliant theme settings
+function set_siam_theme!()
+    siam_theme = Theme(
+        fontsize = 10,
+        font = "CMU Serif",  # Computer Modern Unicode (LaTeX default)
+        linewidth = 1.5,
+        markersize = 8,
+        Axis = (
+            xgridvisible = false,
+            ygridvisible = false,
+            topspinevisible = false,
+            rightspinevisible = false,
+            xticklabelsize = 9,
+            yticklabelsize = 9,
+            xlabelsize = 10,
+            ylabelsize = 10,
+            titlesize = 11,
+        ),
+        Legend = (
+            framevisible = false,
+            labelsize = 9,
+        )
+    )
+    set_theme!(siam_theme)
+end
+
+# Line styles and markers for distinguishing series
+const SIAM_LINESTYLES = [:solid, :dash, :dot, :dashdot, :dashdotdot]
+const SIAM_MARKERS = [:circle, :utriangle, :rect, :diamond, :xcross, :+]
 
 """
-    plot_learned_rates_over_time(result::OptimizationResult, true_rates::Vector{Float64},
-                                  propensity_fn::PropensityFunction)
+    plot_experiment_convergence(result::ExperimentResult; skip_transient=0)
 
-Create a plot showing how learned rates evolve over time windows.
+Plot rate convergence over time windows (SIAM style).
+
+Shows relative errors for all reactions on log scale, demonstrating convergence
+of the learning algorithm.
+
+# Arguments
+- `result`: ExperimentResult from run_inverse_experiment
+- `skip_transient`: Number of initial windows to skip (default: 0)
 
 # Returns
-Makie Figure object
+Publication-ready Figure showing convergence
 """
-function plot_learned_rates_over_time(
-    result::OptimizationResult,
-    true_rates::Vector{Float64},
-    propensity_fn::PropensityFunction
-)
+function plot_experiment_convergence(result::ExperimentResult; skip_transient=0)
+    set_siam_theme!()
+    
     n_reactions = length(result.inferred_stoich)
     n_windows = length(result.learned_generators)
+    
+    # Extract propensity function
+    propensity_fn = auto_detect_propensity_function(result.reaction_network, result.inferred_stoich)
+    
+    # Extract data
+    times = [lg.t_start for lg in result.learned_generators]
+    rel_errors = zeros(n_windows, n_reactions)
+    
+    for (i, lg) in enumerate(result.learned_generators)
+        rate_stats = extract_rates_global(lg, result.global_state_space, propensity_fn, result.inferred_stoich)
+        
+        for j in 1:n_reactions
+            if rate_stats[j].n_transitions > 0
+                rel_errors[i, j] = abs(rate_stats[j].median - result.true_rates[j]) / result.true_rates[j] * 100
+            else
+                rel_errors[i, j] = NaN
+            end
+        end
+    end
+    
+    # Skip transient windows if requested
+    start_idx = skip_transient + 1
+    if start_idx > n_windows
+        @warn "skip_transient=$skip_transient >= n_windows=$n_windows, using all windows"
+        start_idx = 1
+    end
+    
+    times = times[start_idx:end]
+    rel_errors = rel_errors[start_idx:end, :]
+    
+    # Create plot
+    fig = Figure(size = (500, 350))
+    
+    ax = Axis(fig[1, 1],
+             xlabel = "Time",
+             ylabel = "Relative Error (%)",
+             title = "Rate Convergence",
+             yscale = log10)
+    
+    # Plot each reaction with different line style and marker
+    for j in 1:n_reactions
+        valid_idx = .!isnan.(rel_errors[:, j])
+        if any(valid_idx)
+            t_valid = times[valid_idx]
+            err_valid = rel_errors[valid_idx, j]
+            
+            # Lines
+            lines!(ax, t_valid, err_valid,
+                  color = :black,
+                  linestyle = SIAM_LINESTYLES[mod1(j, length(SIAM_LINESTYLES))],
+                  linewidth = 1.5,
+                  label = "k$(j)")
+            
+            # Markers
+            scatter!(ax, t_valid, err_valid,
+                    color = :black,
+                    marker = SIAM_MARKERS[mod1(j, length(SIAM_MARKERS))],
+                    markersize = 6)
+        end
+    end
+    
+    # Reference lines at 1% and 10% error
+    hlines!(ax, [1.0, 10.0], 
+           color = (:black, 0.3), 
+           linestyle = :dot, 
+           linewidth = 1.0)
+    
+    axislegend(ax, position = :rt)
+    
+    return fig
+end
+
+"""
+    plot_experiment_rates_evolution(result::ExperimentResult)
+
+Plot evolution of learned rates over time with error bands (SIAM style).
+
+Shows each rate constant evolving over windows with true value as reference.
+"""
+function plot_experiment_rates_evolution(result::ExperimentResult)
+    set_siam_theme!()
+    
+    n_reactions = length(result.inferred_stoich)
+    n_windows = length(result.learned_generators)
+    
+    propensity_fn = auto_detect_propensity_function(result.reaction_network, result.inferred_stoich)
     
     # Extract data
     times = [lg.t_start for lg in result.learned_generators]
@@ -34,7 +162,7 @@ function plot_learned_rates_over_time(
     rate_errors = zeros(n_windows, n_reactions)
     
     for (i, lg) in enumerate(result.learned_generators)
-        rate_stats = extract_rates(lg, propensity_fn, result.inferred_stoich)
+        rate_stats = extract_rates_global(lg, result.global_state_space, propensity_fn, result.inferred_stoich)
         
         for j in 1:n_reactions
             if rate_stats[j].n_transitions > 0
@@ -47,14 +175,14 @@ function plot_learned_rates_over_time(
         end
     end
     
-    # Create plot
-    fig = Figure(resolution = (1200, 400 * n_reactions))
+    # Create figure
+    fig = Figure(size = (500, 150 * n_reactions))
     
     for j in 1:n_reactions
         ax = Axis(fig[j, 1],
                  xlabel = "Time",
-                 ylabel = "Rate constant",
-                 title = "Reaction $j: $(result.inferred_stoich[j])")
+                 ylabel = "Rate Constant k$(j)",
+                 title = "Reaction $(j): $(format_stoichiometry(result.inferred_stoich[j]))")
         
         # Plot learned rates with error bands
         valid_idx = .!isnan.(learned_rates[:, j])
@@ -63,112 +191,77 @@ function plot_learned_rates_over_time(
             rates_valid = learned_rates[valid_idx, j]
             errors_valid = rate_errors[valid_idx, j]
             
-            # Main line
-            lines!(ax, t_valid, rates_valid, 
-                  color = :blue, linewidth = 2, label = "Learned")
-            
-            # Error bands
+            # Error bands (light gray)
             band!(ax, t_valid, 
                  rates_valid .- errors_valid,
                  rates_valid .+ errors_valid,
-                 color = (:blue, 0.2))
+                 color = (:black, 0.15))
+            
+            # Main line (solid black)
+            lines!(ax, t_valid, rates_valid, 
+                  color = :black, 
+                  linestyle = :solid,
+                  linewidth = 1.5)
+            
+            # Markers
+            scatter!(ax, t_valid, rates_valid,
+                    color = :black,
+                    marker = SIAM_MARKERS[mod1(j, length(SIAM_MARKERS))],
+                    markersize = 6,
+                    label = "Learned")
         end
         
-        # True rate (horizontal line)
-        hlines!(ax, [true_rates[j]], 
-               color = :red, linestyle = :dash, linewidth = 2,
+        # True rate (dashed horizontal line)
+        hlines!(ax, [result.true_rates[j]], 
+               color = :black, 
+               linestyle = :dash, 
+               linewidth = 1.5,
                label = "True")
         
-        axislegend(ax, position = :rt)
-    end
-    
-    return fig
-end
-
-"""
-    plot_generator_heatmap(learned_gen::LearnedGenerator; max_states=20)
-
-Create a heatmap visualization of the learned generator matrix.
-
-# Arguments
-- `learned_gen`: LearnedGenerator to visualize
-- `max_states`: Maximum number of states to show (default: 20)
-"""
-function plot_generator_heatmap(learned_gen::LearnedGenerator; max_states=20)
-    A = learned_gen.A
-    n = min(size(A, 1), max_states)
-    
-    fig = Figure(resolution = (800, 700))
-    
-    ax = Axis(fig[1, 1],
-             xlabel = "From state",
-             ylabel = "To state", 
-             title = "Generator Matrix ($(n)×$(n) block)",
-             aspect = DataAspect())
-    
-    # Plot heatmap (use log scale for better visibility)
-    A_plot = A[1:n, 1:n]
-    A_log = sign.(A_plot) .* log10.(abs.(A_plot) .+ 1e-10)
-    
-    hm = heatmap!(ax, A_log, colormap = :RdBu)
-    Colorbar(fig[1, 2], hm, label = "log₁₀|A|")
-    
-    return fig
-end
-
-"""
-    plot_rate_convergence(result::OptimizationResult, true_rates::Vector{Float64},
-                         propensity_fn::PropensityFunction)
-
-Plot relative errors in learned rates over time.
-"""
-function plot_rate_convergence(
-    result::OptimizationResult,
-    true_rates::Vector{Float64},
-    propensity_fn::PropensityFunction
-)
-    n_reactions = length(result.inferred_stoich)
-    n_windows = length(result.learned_generators)
-    
-  # Extract data
-    times = [lg.t_start for lg in result.learned_generators]
-    rel_errors = zeros(n_windows, n_reactions)
-    
-    for (i, lg) in enumerate(result.learned_generators)
-        rate_stats = extract_rates(lg, propensity_fn, result.inferred_stoich)
-        
-        for j in 1:n_reactions
-            if rate_stats[j].n_transitions > 0
-                rel_errors[i, j] = abs(rate_stats[j].median - true_rates[j]) / true_rates[j] * 100
-            else
-                rel_errors[i, j] = NaN
-            end
+        if j == 1  # Legend only on first panel
+            axislegend(ax, position = :rt)
         end
     end
     
-    # Create plot
-    fig = Figure(resolution = (1000, 600))
+    return fig
+end
+
+"""
+    plot_experiment_state_space(result::ExperimentResult)
+
+Plot evolution of local state space sizes over time (SIAM style).
+"""
+function plot_experiment_state_space(result::ExperimentResult)
+    set_siam_theme!()
+    
+    times = [lg.t_start for lg in result.learned_generators]
+    sizes = [length(lg.state_space) for lg in result.learned_generators]
+    
+    fig = Figure(size = (500, 350))
     
     ax = Axis(fig[1, 1],
              xlabel = "Time",
-             ylabel = "Relative Error (%)",
-             title = "Rate Estimation Error Over Time",
-             yscale = log10)
+             ylabel = "Local State Space Size",
+             title = "Adaptive State Space Evolution")
     
-    colors = [:blue, :red, :green, :orange, :purple]
+    # Line
+    lines!(ax, times, sizes, 
+          color = :black, 
+          linewidth = 1.5)
     
-    for j in 1:n_reactions
-        valid_idx = .!isnan.(rel_errors[:, j])
-        if any(valid_idx)
-            lines!(ax, times[valid_idx], rel_errors[valid_idx, j],
-                  color = colors[mod1(j, length(colors))],
-                  linewidth = 2,
-                  label = "Reaction $j")
-        end
-    end
+    # Scatter points
+    scatter!(ax, times, sizes, 
+            color = :black, 
+            marker = :circle,
+            markersize = 8)
     
-    # Reference line at 1% and 10%
-    hlines!(ax, [1.0, 10.0], color = :gray, linestyle = :dash, alpha = 0.5)
+    # Add reference line for global state space size
+    global_size = length(result.global_state_space)
+    hlines!(ax, [global_size],
+           color = (:black, 0.3),
+           linestyle = :dash,
+           linewidth = 1.0,
+           label = "Global space")
     
     axislegend(ax, position = :rt)
     
@@ -176,95 +269,290 @@ function plot_rate_convergence(
 end
 
 """
-    plot_state_space_size(result::OptimizationResult)
+    plot_experiment_final_comparison(result::ExperimentResult)
 
-Plot how local state space size changes over windows.
+Create bar chart comparing final learned rates to true rates (SIAM style).
 """
-function plot_state_space_size(result::OptimizationResult)
+function plot_experiment_final_comparison(result::ExperimentResult)
+    set_siam_theme!()
+    
+    n_reactions = length(result.inferred_stoich)
+    propensity_fn = auto_detect_propensity_function(result.reaction_network, result.inferred_stoich)
+    
+    # Extract final rates
+    final_gen = result.learned_generators[end]
+    final_stats = extract_rates_global(final_gen, result.global_state_space, propensity_fn, result.inferred_stoich)
+    
+    learned_rates = [final_stats[j].n_transitions > 0 ? final_stats[j].median : 0.0 for j in 1:n_reactions]
+    rate_errors = [final_stats[j].n_transitions > 0 ? final_stats[j].std : 0.0 for j in 1:n_reactions]
+    
+    # Create figure
+    fig = Figure(size = (500, 350))
+    
+    ax = Axis(fig[1, 1],
+             xlabel = "Reaction",
+             ylabel = "Rate Constant",
+             title = "Final Learned vs True Rates",
+             xticks = (1:n_reactions, ["k$j" for j in 1:n_reactions]))
+    
+    # Position bars
+    x = 1:n_reactions
+    width = 0.35
+    
+    # True rates (left bars)
+    barplot!(ax, x .- width/2, result.true_rates,
+            color = :black,
+            strokecolor = :white,
+            strokewidth = 1,
+            width = width,
+            label = "True")
+    
+    # Learned rates (right bars with pattern)
+    barplot!(ax, x .+ width/2, learned_rates,
+            color = (:black, 0.5),  # Gray fill
+            strokecolor = :black,
+            strokewidth = 1,
+            width = width,
+            label = "Learned")
+    
+    # Error bars on learned rates
+    errorbars!(ax, x .+ width/2, learned_rates, rate_errors,
+              color = :black,
+              linewidth = 1.5,
+              whiskerwidth = 8)
+    
+    axislegend(ax, position = :rt)
+    
+    return fig
+end
+
+"""
+    plot_experiment_combined(result::ExperimentResult; skip_transient=0)
+
+Create combined multi-panel figure for paper (SIAM style).
+
+Creates a comprehensive figure with:
+- Panel (a): Rate convergence
+- Panel (b): State space evolution
+- Panel (c): Final rate comparison
+"""
+function plot_experiment_combined(result::ExperimentResult; skip_transient=0)
+    set_siam_theme!()
+    
+    n_reactions = length(result.inferred_stoich)
+    propensity_fn = auto_detect_propensity_function(result.reaction_network, result.inferred_stoich)
+    
+    # Create figure with 3 panels
+    fig = Figure(size = (500, 900))
+    
+    # Panel A: Rate convergence
+    ax1 = Axis(fig[1, 1],
+              xlabel = "Time",
+              ylabel = "Relative Error (%)",
+              title = "(a) Rate Convergence",
+              yscale = log10)
+    
     times = [lg.t_start for lg in result.learned_generators]
+    start_idx = skip_transient + 1
+    
+    for j in 1:n_reactions
+        rel_errors = Float64[]
+        t_valid = Float64[]
+        
+        for (i, lg) in enumerate(result.learned_generators[start_idx:end])
+            rate_stats = extract_rates_global(lg, result.global_state_space, propensity_fn, result.inferred_stoich)
+            if rate_stats[j].n_transitions > 0
+                push!(rel_errors, abs(rate_stats[j].median - result.true_rates[j]) / result.true_rates[j] * 100)
+                push!(t_valid, times[start_idx + i - 1])
+            end
+        end
+        
+        if !isempty(t_valid)
+            lines!(ax1, t_valid, rel_errors,
+                  color = :black,
+                  linestyle = SIAM_LINESTYLES[mod1(j, length(SIAM_LINESTYLES))],
+                  linewidth = 1.5,
+                  label = "k$j")
+            scatter!(ax1, t_valid, rel_errors,
+                    color = :black,
+                    marker = SIAM_MARKERS[mod1(j, length(SIAM_MARKERS))],
+                    markersize = 6)
+        end
+    end
+    
+    hlines!(ax1, [1.0], color = (:black, 0.3), linestyle = :dot, linewidth = 1.0)
+    axislegend(ax1, position = :rt)
+    
+    # Panel B: State space size
+    ax2 = Axis(fig[2, 1],
+              xlabel = "Time",
+              ylabel = "State Space Size",
+              title = "(b) Adaptive State Space")
+    
     sizes = [length(lg.state_space) for lg in result.learned_generators]
+    lines!(ax2, times, sizes, color = :black, linewidth = 1.5)
+    scatter!(ax2, times, sizes, color = :black, marker = :circle, markersize = 8)
     
-    fig = Figure(resolution = (800, 500))
+    global_size = length(result.global_state_space)
+    hlines!(ax2, [global_size], color = (:black, 0.3), linestyle = :dash, linewidth = 1.0)
     
-    ax = Axis(fig[1, 1],
-             xlabel = "Time",
-             ylabel = "State Space Size",
-             title = "Local State Space Evolution")
+    # Panel C: Final rate comparison
+    ax3 = Axis(fig[3, 1],
+              xlabel = "Reaction",
+              ylabel = "Rate Constant",
+              title = "(c) Final Learned vs True Rates",
+              xticks = (1:n_reactions, ["k$j" for j in 1:n_reactions]))
     
-    lines!(ax, times, sizes, color = :blue, linewidth = 2)
-    scatter!(ax, times, sizes, color = :blue, markersize = 10)
+    final_gen = result.learned_generators[end]
+    final_stats = extract_rates_global(final_gen, result.global_state_space, propensity_fn, result.inferred_stoich)
     
-    return fig
-end
-
-"""
-    plot_distribution_snapshot(dist::Dict, title="Distribution")
-
-Visualize a probability distribution (works best for 2D projections).
-"""
-function plot_distribution_snapshot(dist::Dict, title="Distribution")
-    # Extract states and probabilities
-    states = collect(keys(dist))
-    probs = collect(values(dist))
+    learned_rates = [final_stats[j].n_transitions > 0 ? final_stats[j].median : 0.0 for j in 1:n_reactions]
+    rate_errors = [final_stats[j].n_transitions > 0 ? final_stats[j].std : 0.0 for j in 1:n_reactions]
     
-    # Sort by probability
-    sorted_idx = sortperm(probs, rev=true)
-    top_n = min(20, length(sorted_idx))
+    x = 1:n_reactions
+    width = 0.35
     
-    fig = Figure(resolution = (800, 600))
+    barplot!(ax3, x .- width/2, result.true_rates,
+            color = :black, strokecolor = :white, strokewidth = 1, width = width, label = "True")
+    barplot!(ax3, x .+ width/2, learned_rates,
+            color = (:black, 0.5), strokecolor = :black, strokewidth = 1, width = width, label = "Learned")
+    errorbars!(ax3, x .+ width/2, learned_rates, rate_errors,
+              color = :black, linewidth = 1.5, whiskerwidth = 8)
     
-    ax = Axis(fig[1, 1],
-             xlabel = "State index (sorted by probability)",
-             ylabel = "Probability",
-             title = title)
-    
-    barplot!(ax, 1:top_n, probs[sorted_idx[1:top_n]],
-            color = :blue, alpha = 0.7)
+    axislegend(ax3, position = :rt)
     
     return fig
 end
 
 """
-    save_all_plots(result::OptimizationResult, true_rates::Vector{Float64},
-                   propensity_fn::PropensityFunction; 
-                   output_dir="plots")
+    plot_experiment_trajectory_statistics(result::ExperimentResult)
 
-Generate and save all standard plots for an optimization result.
+Plot statistics about the generated trajectories (SIAM style).
 """
-function save_all_plots(
-    result::OptimizationResult,
-    true_rates::Vector{Float64},
-    propensity_fn::PropensityFunction;
-    output_dir="plots"
+function plot_experiment_trajectory_statistics(result::ExperimentResult)
+    set_siam_theme!()
+    
+    # Extract trajectory lengths
+    traj_lengths = [length(traj.t) for traj in result.trajectories]
+    
+    fig = Figure(size = (500, 350))
+    
+    ax = Axis(fig[1, 1],
+             xlabel = "Number of Time Points",
+             ylabel = "Frequency",
+             title = "Trajectory Length Distribution")
+    
+    hist!(ax, traj_lengths,
+         bins = 30,
+         color = (:black, 0.5),
+         strokecolor = :black,
+         strokewidth = 1)
+    
+    # Add mean line
+    mean_length = mean(traj_lengths)
+    vlines!(ax, [mean_length],
+           color = :black,
+           linestyle = :dash,
+           linewidth = 1.5,
+           label = @sprintf("Mean: %.1f", mean_length))
+    
+    axislegend(ax, position = :rt)
+    
+    return fig
+end
+
+"""
+    save_experiment_figures_siam(result::ExperimentResult;
+                                 output_dir="figures_siam",
+                                 formats=[:pdf, :eps],
+                                 skip_transient=0)
+
+Generate and save all SIAM-compliant figures for an experiment.
+
+# Arguments
+- `result`: ExperimentResult from run_inverse_experiment
+- `output_dir`: Directory to save figures (default: "figures_siam")
+- `formats`: Vector of output formats (default: [:pdf, :eps])
+- `skip_transient`: Number of initial windows to skip in convergence plot
+"""
+function save_experiment_figures_siam(
+    result::ExperimentResult;
+    output_dir="figures_siam",
+    formats=[:pdf, :eps],
+    skip_transient=0
 )
     mkpath(output_dir)
     
-    println("Generating plots...")
+    println("\nGenerating SIAM-compliant figures for experiment...")
     
-    # 1. Rates over time
-    println("  - Learned rates over time")
-    fig1 = plot_learned_rates_over_time(result, true_rates, propensity_fn)
-    save(joinpath(output_dir, "rates_over_time.png"), fig1)
-    
-    # 2. Rate convergence
+    # 1. Convergence plot
     println("  - Rate convergence")
-    fig2 = plot_rate_convergence(result, true_rates, propensity_fn)
-    save(joinpath(output_dir, "rate_convergence.png"), fig2)
-    
-    # 3. State space size
-    println("  - State space size evolution")
-    fig3 = plot_state_space_size(result)
-    save(joinpath(output_dir, "state_space_size.png"), fig3)
-    
-    # 4. Generator heatmap (first and last windows)
-    if length(result.learned_generators) >= 2
-        println("  - Generator heatmaps")
-        fig4a = plot_generator_heatmap(result.learned_generators[1])
-        save(joinpath(output_dir, "generator_first_window.png"), fig4a)
-        
-        fig4b = plot_generator_heatmap(result.learned_generators[end])
-        save(joinpath(output_dir, "generator_last_window.png"), fig4b)
+    fig1 = plot_experiment_convergence(result, skip_transient=skip_transient)
+    for fmt in formats
+        save(joinpath(output_dir, "convergence.$fmt"), fig1, pt_per_unit=1)
     end
     
-    println("All plots saved to $output_dir/")
+    # 2. Rate evolution
+    println("  - Rate evolution over time")
+    fig2 = plot_experiment_rates_evolution(result)
+    for fmt in formats
+        save(joinpath(output_dir, "rates_evolution.$fmt"), fig2, pt_per_unit=1)
+    end
+    
+    # 3. State space size
+    println("  - State space evolution")
+    fig3 = plot_experiment_state_space(result)
+    for fmt in formats
+        save(joinpath(output_dir, "state_space.$fmt"), fig3, pt_per_unit=1)
+    end
+    
+    # 4. Final comparison
+    println("  - Final rate comparison")
+    fig4 = plot_experiment_final_comparison(result)
+    for fmt in formats
+        save(joinpath(output_dir, "final_comparison.$fmt"), fig4, pt_per_unit=1)
+    end
+    
+    # 5. Combined figure
+    println("  - Combined multi-panel figure")
+    fig5 = plot_experiment_combined(result, skip_transient=skip_transient)
+    for fmt in formats
+        save(joinpath(output_dir, "combined_results.$fmt"), fig5, pt_per_unit=1)
+    end
+    
+    # 6. Trajectory statistics
+    println("  - Trajectory statistics")
+    fig6 = plot_experiment_trajectory_statistics(result)
+    for fmt in formats
+        save(joinpath(output_dir, "trajectory_stats.$fmt"), fig6, pt_per_unit=1)
+    end
+    
+    println("\n✓ All figures saved to $output_dir/")
+    println("  Formats: $(join(formats, ", "))")
+    println("\nFigures generated:")
+    println("  - convergence.{pdf,eps}      : Rate convergence over windows")
+    println("  - rates_evolution.{pdf,eps}  : Individual rate evolution with error bands")
+    println("  - state_space.{pdf,eps}      : Adaptive state space size")
+    println("  - final_comparison.{pdf,eps} : Bar chart of final vs true rates")
+    println("  - combined_results.{pdf,eps} : Three-panel comprehensive figure")
+    println("  - trajectory_stats.{pdf,eps} : SSA trajectory length distribution")
 end
+
+"""
+    format_stoichiometry(stoich::Vector{Int})
+
+Format stoichiometry vector as readable string.
+"""
+function format_stoichiometry(stoich::Vector{Int})
+    return "[" * join(stoich, ", ") * "]"
+end
+
+# Export all visualization functions
+export plot_experiment_convergence
+export plot_experiment_rates_evolution
+export plot_experiment_state_space
+export plot_experiment_final_comparison
+export plot_experiment_combined
+export plot_experiment_trajectory_statistics
+export save_experiment_figures_siam
+export set_siam_theme!
