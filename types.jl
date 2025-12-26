@@ -120,33 +120,3 @@ function Base.show(io::IO, result::OptimizationResult)
     println(io, "  $(length(result.inferred_stoich)) reactions")
     print(io, "  Time range: [$(result.learned_generators[1].t_start), $(result.learned_generators[end].t_start)]")
 end
-
-"""
-    ExperimentResult
-
-Complete results from an inverse CME experiment including all data and metadata.
-
-# Fields
-- `reaction_network`: Original Catalyst reaction network
-- `true_rates::Vector{Float64}`: True rate constants (for validation)
-- `learned_generators::Vector{LearnedGenerator}`: Learned generators (one per window)
-- `inferred_stoich::Vector{Vector{Int}}`: Inferred stoichiometry vectors (in Catalyst order)
-- `stoich_permutation::Vector{Int}`: Permutation from raw inferred order to Catalyst order
-- `global_state_space::Set`: Global state space used for rate extraction
-- `config::InverseProblemConfig`: Configuration parameters
-- `trajectories::Vector`: Raw SSA trajectories
-- `distributions::Tuple`: (times, distributions) from histogram conversion
-- `windows::Vector{WindowData}`: Window data structures
-"""
-struct ExperimentResult
-    reaction_network  # ReactionSystem (avoid type dependency)
-    true_rates::Vector{Float64}
-    learned_generators::Vector{LearnedGenerator}
-    inferred_stoich::Vector{Vector{Int}}
-    stoich_permutation::Vector{Int}
-    global_state_space::Set
-    config::InverseProblemConfig
-    trajectories::Vector
-    distributions::Tuple
-    windows::Vector{WindowData}
-end
