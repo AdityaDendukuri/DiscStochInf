@@ -1,0 +1,2315 @@
+{
+    "statistics": {
+        "summary": {
+            "min_relative_error": 0.9995812327960593,
+            "mean_relative_error": 0.9997072791907704,
+            "max_relative_error": 0.9999350905882979,
+            "n_reactions_recovered": 3,
+            "total_transitions": 138,
+            "median_relative_error": 0.9996055141879542,
+            "total_windows": 30
+        },
+        "error_decomposition": {
+            "biases": {
+                "2": 0.0999935090588298,
+                "3": 0.09996055141879542,
+                "1": 0.009995812327960592
+            },
+            "sampling_variances": {
+                "2": 1.5041968572894697e-8,
+                "3": 4.18178429523619e-8,
+                "1": 1.1075535835915259e-10
+            },
+            "window_inconsistency": 0.00025770773621741584,
+            "bias_contribution": 0.9999935783014666,
+            "sampling_variance_contribution": 0.040542270621140956,
+            "window_variances": {
+                "2": 1.5291932254314098e-7,
+                "3": 1.1941682686059183e-6,
+                "1": 1.0558571366721364e-9
+            }
+        },
+        "aggregated_rates": {
+            "reaction_3": {
+                "median": 3.944858120458557e-5,
+                "relative_error": 0.9996055141879542,
+                "std": 0.0014746280322585823,
+                "absolute_error": 0.09996055141879542,
+                "mean": 0.0004972339838521226,
+                "true_rate": 0.1,
+                "n_transitions": 52
+            },
+            "reaction_1": {
+                "median": 4.1876720394073285e-6,
+                "relative_error": 0.9995812327960593,
+                "std": 6.980856514642536e-5,
+                "absolute_error": 0.009995812327960592,
+                "mean": 3.492223679144477e-5,
+                "true_rate": 0.01,
+                "n_transitions": 44
+            },
+            "reaction_2": {
+                "median": 6.490941170212256e-6,
+                "relative_error": 0.9999350905882979,
+                "std": 0.0007948350017843813,
+                "absolute_error": 0.0999935090588298,
+                "mean": 0.0002726695222685551,
+                "true_rate": 0.1,
+                "n_transitions": 42
+            }
+        }
+    },
+    "rates": {
+        "reaction_3": [
+            {
+                "median": 0.00012395107769735267,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 6,
+                "time": 5,
+                "mean": 0.00012395107769735267,
+                "relative_error": 0.9987604892230264
+            },
+            {
+                "median": 0.001120737425464863,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 7,
+                "time": 6,
+                "mean": 0.001120737425464863,
+                "relative_error": 0.9887926257453513
+            },
+            {
+                "median": 4.0604749770538617e-5,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 9,
+                "time": 8,
+                "mean": 4.0604749770538617e-5,
+                "relative_error": 0.9995939525022947
+            },
+            {
+                "median": 0.00011445203941927749,
+                "relative_error": 0.9988554796058072,
+                "std": 0.00015876674631558468,
+                "window_idx": 10,
+                "time": 9,
+                "mean": 0.00011445203941927749,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.003451505448407579,
+                "relative_error": 0.9654849455159242,
+                "std": 0.004868555610958212,
+                "window_idx": 12,
+                "time": 11,
+                "mean": 0.003451505448407579,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.0001410743114016771,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 13,
+                "time": 12,
+                "mean": 0.0001410743114016771,
+                "relative_error": 0.9985892568859833
+            },
+            {
+                "median": 0.00021873660057778295,
+                "relative_error": 0.9978126339942223,
+                "std": 0.00023777285128119714,
+                "window_idx": 14,
+                "time": 13,
+                "mean": 0.00021873660057778295,
+                "n_transitions": 2
+            },
+            {
+                "median": 7.977430094843209e-6,
+                "relative_error": 0.9999202256990516,
+                "std": 0.000131946001032988,
+                "window_idx": 15,
+                "time": 14,
+                "mean": 6.653400597249071e-5,
+                "n_transitions": 5
+            },
+            {
+                "median": 4.806567745113679e-6,
+                "relative_error": 0.9999519343225489,
+                "std": 3.1816610615022796e-6,
+                "window_idx": 16,
+                "time": 15,
+                "mean": 4.593549020829571e-6,
+                "n_transitions": 3
+            },
+            {
+                "median": 0.00014108814130901344,
+                "relative_error": 0.9985891185869098,
+                "std": 0.00016516491247239675,
+                "window_idx": 17,
+                "time": 16,
+                "mean": 0.00014108814130901344,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.0004119669365757537,
+                "relative_error": 0.9958803306342425,
+                "std": 0.00023731651908984468,
+                "window_idx": 18,
+                "time": 17,
+                "mean": 0.00027533644723677094,
+                "n_transitions": 3
+            },
+            {
+                "median": 0.00015807621152275718,
+                "relative_error": 0.9984192378847725,
+                "std": 0.0002129271977989796,
+                "window_idx": 19,
+                "time": 18,
+                "mean": 0.00015807621152275718,
+                "n_transitions": 2
+            },
+            {
+                "median": 3.8292412638632524e-5,
+                "relative_error": 0.9996170758736137,
+                "std": 0.0001484599777265851,
+                "window_idx": 20,
+                "time": 19,
+                "mean": 0.00010532172807685398,
+                "n_transitions": 3
+            },
+            {
+                "median": 1.4315088873866823e-6,
+                "relative_error": 0.9999856849111262,
+                "std": 0.0004916835254027928,
+                "window_idx": 21,
+                "time": 20,
+                "mean": 0.0002470274560235224,
+                "n_transitions": 4
+            },
+            {
+                "median": 4.5505398546111144e-5,
+                "relative_error": 0.9995449460145389,
+                "std": 0.0007111577796299618,
+                "window_idx": 22,
+                "time": 21,
+                "mean": 0.0003853801791557322,
+                "n_transitions": 4
+            },
+            {
+                "median": 2.831403278170646e-6,
+                "relative_error": 0.9999716859672183,
+                "std": 2.288909288236108e-6,
+                "window_idx": 23,
+                "time": 22,
+                "mean": 2.831403278170646e-6,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.00023994199329519333,
+                "relative_error": 0.9976005800670481,
+                "std": 5.4609194660699796e-5,
+                "window_idx": 24,
+                "time": 23,
+                "mean": 0.00025642861718307603,
+                "n_transitions": 3
+            },
+            {
+                "median": 2.4977100935801433e-5,
+                "relative_error": 0.999750228990642,
+                "std": 3.107565173097238e-5,
+                "window_idx": 25,
+                "time": 24,
+                "mean": 2.4977100935801433e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 5.975346576567887e-7,
+                "relative_error": 0.9999940246534235,
+                "std": 8.062980621827246e-8,
+                "window_idx": 26,
+                "time": 25,
+                "mean": 5.975346576567887e-7,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.0003742912711362675,
+                "relative_error": 0.9962570872886374,
+                "std": 0.0005270269532493161,
+                "window_idx": 27,
+                "time": 26,
+                "mean": 0.0003742912711362675,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.004110745284647103,
+                "relative_error": 0.958892547153529,
+                "std": 0.005812673789012532,
+                "window_idx": 28,
+                "time": 27,
+                "mean": 0.004110745284647103,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.0006686771041386883,
+                "relative_error": 0.9933132289586131,
+                "std": 0.0005637158470358871,
+                "window_idx": 29,
+                "time": 28,
+                "mean": 0.0008159519763536897,
+                "n_transitions": 3
+            }
+        ],
+        "reaction_1": [
+            {
+                "median": 9.430979110189279e-6,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 5,
+                "time": 4,
+                "mean": 9.430979110189279e-6,
+                "relative_error": 0.999056902088981
+            },
+            {
+                "median": 9.627107951017807e-6,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 9,
+                "time": 8,
+                "mean": 9.627107951017807e-6,
+                "relative_error": 0.9990372892048982
+            },
+            {
+                "median": 4.906151778132665e-5,
+                "relative_error": 0.9950938482218674,
+                "std": 6.933647801106778e-5,
+                "window_idx": 10,
+                "time": 9,
+                "mean": 4.906151778132665e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 1.0103461014170474e-5,
+                "relative_error": 0.998989653898583,
+                "std": 0.00018473348802785372,
+                "window_idx": 11,
+                "time": 10,
+                "mean": 0.00011168778049991797,
+                "n_transitions": 3
+            },
+            {
+                "median": 1.0449460843456845e-5,
+                "relative_error": 0.9989550539156544,
+                "std": 1.0570363111809708e-5,
+                "window_idx": 12,
+                "time": 11,
+                "mean": 1.0449460843456845e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 5.629907039302842e-5,
+                "relative_error": 0.9943700929606971,
+                "std": 7.95722431123278e-5,
+                "window_idx": 13,
+                "time": 12,
+                "mean": 5.629907039302842e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 9.346400974426972e-5,
+                "relative_error": 0.990653599025573,
+                "std": 0.00013213953176863746,
+                "window_idx": 14,
+                "time": 13,
+                "mean": 9.346400974426972e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 5.155195968354794e-8,
+                "relative_error": 0.9999948448040317,
+                "std": 6.626735540836967e-6,
+                "window_idx": 15,
+                "time": 14,
+                "mean": 3.014381586930525e-6,
+                "n_transitions": 5
+            },
+            {
+                "median": 9.534044414803121e-6,
+                "relative_error": 0.9990465955585196,
+                "std": 6.57704291369805e-5,
+                "window_idx": 16,
+                "time": 15,
+                "mean": 3.8975038841768335e-5,
+                "n_transitions": 4
+            },
+            {
+                "median": 3.199401189183757e-5,
+                "relative_error": 0.9968005988108163,
+                "std": 4.4586404818524584e-5,
+                "window_idx": 18,
+                "time": 17,
+                "mean": 3.199401189183757e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 1.1470258215239465e-5,
+                "relative_error": 0.9988529741784762,
+                "std": 6.23347132694198e-5,
+                "window_idx": 19,
+                "time": 18,
+                "mean": 4.1596446233919125e-5,
+                "n_transitions": 3
+            },
+            {
+                "median": 4.936409985178764e-6,
+                "relative_error": 0.9995063590014822,
+                "std": 6.928834505197747e-6,
+                "window_idx": 20,
+                "time": 19,
+                "mean": 4.936409985178764e-6,
+                "n_transitions": 2
+            },
+            {
+                "median": 3.6298288172804294e-5,
+                "relative_error": 0.9963701711827196,
+                "std": 4.024198060202934e-5,
+                "window_idx": 21,
+                "time": 20,
+                "mean": 3.6298288172804294e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 6.321363133198808e-8,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 22,
+                "time": 21,
+                "mean": 6.321363133198808e-8,
+                "relative_error": 0.9999936786368668
+            },
+            {
+                "median": 2.1790213344475952e-5,
+                "relative_error": 0.9978209786655523,
+                "std": 3.076228146620367e-5,
+                "window_idx": 23,
+                "time": 22,
+                "mean": 2.1790213344475952e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 2.16722518285384e-8,
+                "relative_error": 0.9999978327748171,
+                "std": 5.4964520158107064e-9,
+                "window_idx": 24,
+                "time": 23,
+                "mean": 2.16722518285384e-8,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.00012149693150075845,
+                "relative_error": 0.9878503068499241,
+                "std": 0.0001641854892617802,
+                "window_idx": 25,
+                "time": 24,
+                "mean": 0.00012149693150075845,
+                "n_transitions": 2
+            },
+            {
+                "median": 3.5462219036594617e-6,
+                "relative_error": 0.9996453778096341,
+                "std": 4.938938107230716e-6,
+                "window_idx": 26,
+                "time": 25,
+                "mean": 3.5462219036594617e-6,
+                "n_transitions": 2
+            },
+            {
+                "median": 1.3717802160843203e-5,
+                "relative_error": 0.9986282197839157,
+                "std": 1.9323985229052544e-5,
+                "window_idx": 27,
+                "time": 26,
+                "mean": 1.3717802160843203e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 1.6833128497164452e-7,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 28,
+                "time": 27,
+                "mean": 1.6833128497164452e-7,
+                "relative_error": 0.9999831668715028
+            },
+            {
+                "median": 3.1282339588585887e-7,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 30,
+                "time": 29,
+                "mean": 3.1282339588585887e-7,
+                "relative_error": 0.9999687176604115
+            }
+        ],
+        "reaction_2": [
+            {
+                "median": 3.2874204634570455e-5,
+                "relative_error": 0.9996712579536543,
+                "std": 4.527644463322838e-5,
+                "window_idx": 4,
+                "time": 3,
+                "mean": 3.2874204634570455e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 4.2638533085931315e-5,
+                "relative_error": 0.9995736146691406,
+                "std": 3.419098610005038e-6,
+                "window_idx": 6,
+                "time": 5,
+                "mean": 4.2638533085931315e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 1.2462618966613706e-6,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 8,
+                "time": 7,
+                "mean": 1.2462618966613706e-6,
+                "relative_error": 0.9999875373810333
+            },
+            {
+                "median": 0.0001525595473941646,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 9,
+                "time": 8,
+                "mean": 0.0001525595473941646,
+                "relative_error": 0.9984744045260583
+            },
+            {
+                "median": 1.3138279164001462e-5,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 12,
+                "time": 11,
+                "mean": 1.3138279164001462e-5,
+                "relative_error": 0.99986861720836
+            },
+            {
+                "median": 1.6463654672210839e-6,
+                "relative_error": 0.9999835363453278,
+                "std": 0.00042573346717309385,
+                "window_idx": 13,
+                "time": 12,
+                "mean": 0.00021425516309452004,
+                "n_transitions": 4
+            },
+            {
+                "median": 9.165572116420096e-7,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 14,
+                "time": 13,
+                "mean": 9.165572116420096e-7,
+                "relative_error": 0.9999908344278836
+            },
+            {
+                "median": 7.977422344599738e-6,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 15,
+                "time": 14,
+                "mean": 7.977422344599738e-6,
+                "relative_error": 0.999920225776554
+            },
+            {
+                "median": 0.0018052667424586627,
+                "relative_error": 0.9819473325754133,
+                "std": 0.0025131841698088904,
+                "window_idx": 16,
+                "time": 15,
+                "mean": 0.0018052667424586627,
+                "n_transitions": 2
+            },
+            {
+                "median": 4.529240586821201e-7,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 17,
+                "time": 16,
+                "mean": 4.529240586821201e-7,
+                "relative_error": 0.9999954707594131
+            },
+            {
+                "median": 5.974499846637629e-5,
+                "relative_error": 0.9994025500153362,
+                "std": 7.741481191666011e-5,
+                "window_idx": 19,
+                "time": 18,
+                "mean": 5.974499846637629e-5,
+                "n_transitions": 2
+            },
+            {
+                "median": 2.745005295354156e-6,
+                "relative_error": 0.9999725499470464,
+                "std": 1.7198802570640927e-5,
+                "window_idx": 20,
+                "time": 19,
+                "mean": 1.1960633483384743e-5,
+                "n_transitions": 3
+            },
+            {
+                "median": 0.0001630156059771864,
+                "relative_error": 0.9983698439402281,
+                "std": 0.00017873568371615437,
+                "window_idx": 21,
+                "time": 20,
+                "mean": 0.0001630156059771864,
+                "n_transitions": 2
+            },
+            {
+                "median": 6.40110316914974e-7,
+                "relative_error": 0.9999935988968308,
+                "std": 6.995992360281374e-7,
+                "window_idx": 22,
+                "time": 21,
+                "mean": 6.40110316914974e-7,
+                "n_transitions": 2
+            },
+            {
+                "median": 1.7207671844084832e-6,
+                "relative_error": 0.9999827923281559,
+                "std": 7.358852763512002e-8,
+                "window_idx": 23,
+                "time": 22,
+                "mean": 1.7207671844084832e-6,
+                "n_transitions": 2
+            },
+            {
+                "median": 1.071150581848902e-6,
+                "relative_error": 0.9999892884941816,
+                "std": 0.0005402041473278929,
+                "window_idx": 24,
+                "time": 23,
+                "mean": 0.00031277335108238443,
+                "n_transitions": 3
+            },
+            {
+                "median": 0.0001011523175312384,
+                "relative_error": 0.9989884768246876,
+                "std": 0.00013922919822410506,
+                "window_idx": 25,
+                "time": 24,
+                "mean": 0.0001011523175312384,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.0004162357761336826,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 26,
+                "time": 25,
+                "mean": 0.0004162357761336826,
+                "relative_error": 0.9958376422386631
+            },
+            {
+                "median": 2.6376057318979795e-6,
+                "relative_error": 0.9999736239426811,
+                "std": 5.291610922701791e-6,
+                "window_idx": 27,
+                "time": 26,
+                "mean": 5.165271910277621e-6,
+                "n_transitions": 3
+            },
+            {
+                "median": 0.0004654661620943326,
+                "relative_error": 0.9953453383790567,
+                "std": 0.0019530414936057268,
+                "window_idx": 28,
+                "time": 27,
+                "mean": 0.0014822823390385565,
+                "n_transitions": 3
+            },
+            {
+                "median": 1.460432487484129e-6,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 29,
+                "time": 28,
+                "mean": 1.460432487484129e-6,
+                "relative_error": 0.9999853956751251
+            },
+            {
+                "median": 7.523036817796314e-5,
+                "relative_error": 0.9992476963182203,
+                "std": 0.00010460738057006896,
+                "window_idx": 30,
+                "time": 29,
+                "mean": 7.523036817796314e-5,
+                "n_transitions": 2
+            }
+        ]
+    },
+    "diagnostics": {
+        "theoretical_bounds": [
+            {
+                "w_eff_mean": 0.3,
+                "uniqueness_threshold": 0.3,
+                "relaxation_time_estimate": 0.4,
+                "conditioning_ratio": 0.12,
+                "uniqueness_product": 0.6,
+                "w_eff_std": 7.144709262466374e-17,
+                "conditioning_threshold": 5,
+                "uniqueness_satisfied": false,
+                "lambda_gap_estimate": 2.5,
+                "conditioning_satisfied": false
+            }
+        ],
+        "state_space_statistics": [
+            {
+                "global_size": 570,
+                "inferred_reactions": 3,
+                "compression_ratio": 13.571428571428571,
+                "fsp_size": 42,
+                "stoichiometry": [
+                    [
+                        -1,
+                        -1,
+                        1,
+                        0
+                    ],
+                    [
+                        0,
+                        1,
+                        -1,
+                        1
+                    ],
+                    [
+                        1,
+                        1,
+                        -1,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "trajectory_statistics": [
+            {
+                "n_trajectories": 5000,
+                "median_length": 203,
+                "std_length": 19.73126206760622,
+                "max_length": 291,
+                "mean_length": 204.5276,
+                "min_length": 149
+            }
+        ],
+        "distribution_statistics": [
+            {
+                "mean_support_size": 65.25791402865711,
+                "std_support_size": 39.417924748950696,
+                "min_support_size": 1,
+                "max_support_size": 130,
+                "n_distributions": 3001,
+                "time_range": [
+                    0,
+                    150
+                ]
+            }
+        ]
+    },
+    "windows": {
+        "window_14": {
+            "state_space_size": 193,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.25801867947476537,
+                "improvement_pct": 90.56436099610073,
+                "initial_objective": 0.28490089990904305,
+                "final_objective": 0.026882220434277685
+            },
+            "window_idx": 14,
+            "generator_properties": {
+                "n_nonzeros": 544,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.22983512061755149,
+                "prob_conservation": 1.0000000000000002
+            },
+            "time_end": 13.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.00021873660057778295,
+                    "relative_error": 0.9978126339942223,
+                    "std": 0.00023777285128119714,
+                    "max": 0.00038686739610077793,
+                    "min": 5.060580505478799e-5,
+                    "mean": 0.00021873660057778295,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": 9.346400974426972e-5,
+                    "relative_error": 0.990653599025573,
+                    "std": 0.00013213953176863746,
+                    "max": 0.0001869007687206885,
+                    "min": 2.725076785095466e-8,
+                    "mean": 9.346400974426972e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 9.165572116420096e-7,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 9.165572116420096e-7,
+                    "min": 9.165572116420096e-7,
+                    "mean": 9.165572116420096e-7,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9999908344278836
+                }
+            },
+            "time_start": 13
+        },
+        "window_15": {
+            "state_space_size": 200,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.26594733115414315,
+                "improvement_pct": 89.83889709165526,
+                "initial_objective": 0.29602693239078715,
+                "final_objective": 0.030079601236643987
+            },
+            "window_idx": 15,
+            "generator_properties": {
+                "n_nonzeros": 564,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.2532522382033881,
+                "prob_conservation": 1
+            },
+            "time_end": 14.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 7.977430094843209e-6,
+                    "relative_error": 0.9999202256990516,
+                    "std": 0.000131946001032988,
+                    "max": 0.0003023752446165924,
+                    "min": 2.288418684970011e-6,
+                    "mean": 6.653400597249071e-5,
+                    "true_rate": 0.1,
+                    "n_transitions": 5
+                },
+                "reaction_1": {
+                    "median": 5.155195968354794e-8,
+                    "relative_error": 0.9999948448040317,
+                    "std": 6.626735540836967e-6,
+                    "max": 1.48686124207835e-5,
+                    "min": 3.3682021356321396e-8,
+                    "mean": 3.014381586930525e-6,
+                    "true_rate": 0.01,
+                    "n_transitions": 5
+                },
+                "reaction_2": {
+                    "median": 7.977422344599738e-6,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 7.977422344599738e-6,
+                    "min": 7.977422344599738e-6,
+                    "mean": 7.977422344599738e-6,
+                    "true_rate": 0.1,
+                    "relative_error": 0.999920225776554
+                }
+            },
+            "time_start": 14
+        },
+        "window_11": {
+            "state_space_size": 161,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.21337486838920564,
+                "improvement_pct": 86.35963145208795,
+                "initial_objective": 0.2470770947043531,
+                "final_objective": 0.03370222631514746
+            },
+            "window_idx": 11,
+            "generator_properties": {
+                "n_nonzeros": 452,
+                "max_col_sum_error": 3.469446951953614e-18,
+                "frobenius_norm": 0.20953822627081176,
+                "prob_conservation": 0.9999999999999998
+            },
+            "time_end": 10.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": 1.0103461014170474e-5,
+                    "relative_error": 0.998989653898583,
+                    "std": 0.00018473348802785372,
+                    "max": 0.0003249204866740949,
+                    "min": 3.93938114885383e-8,
+                    "mean": 0.00011168778049991797,
+                    "true_rate": 0.01,
+                    "n_transitions": 3
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 10
+        },
+        "window_28": {
+            "state_space_size": 251,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.3311084490337937,
+                "improvement_pct": 91.52208044406663,
+                "initial_objective": 0.36177985402784785,
+                "final_objective": 0.030671404994054144
+            },
+            "window_idx": 28,
+            "generator_properties": {
+                "n_nonzeros": 729,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.252827303206385,
+                "prob_conservation": 1.0000000000000002
+            },
+            "time_end": 27.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.004110745284647103,
+                    "relative_error": 0.958892547153529,
+                    "std": 0.005812673789012532,
+                    "max": 0.008220926337683168,
+                    "min": 5.642316110382392e-7,
+                    "mean": 0.004110745284647103,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": 1.6833128497164452e-7,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 1.6833128497164452e-7,
+                    "min": 1.6833128497164452e-7,
+                    "mean": 1.6833128497164452e-7,
+                    "true_rate": 0.01,
+                    "relative_error": 0.9999831668715028
+                },
+                "reaction_2": {
+                    "median": 0.0004654661620943326,
+                    "relative_error": 0.9953453383790567,
+                    "std": 0.0019530414936057268,
+                    "max": 0.0037339444888781124,
+                    "min": 0.0002474363661432244,
+                    "mean": 0.0014822823390385565,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                }
+            },
+            "time_start": 27
+        },
+        "window_23": {
+            "state_space_size": 227,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.29979934159618216,
+                "improvement_pct": 89.26836086326664,
+                "initial_objective": 0.3358405359939209,
+                "final_objective": 0.036041194397738716
+            },
+            "window_idx": 23,
+            "generator_properties": {
+                "n_nonzeros": 658,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.2123083746790453,
+                "prob_conservation": 1.0000000000000002
+            },
+            "time_end": 22.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 2.831403278170646e-6,
+                    "relative_error": 0.9999716859672183,
+                    "std": 2.288909288236108e-6,
+                    "max": 4.449906557403272e-6,
+                    "min": 1.2128999989380202e-6,
+                    "mean": 2.831403278170646e-6,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": 2.1790213344475952e-5,
+                    "relative_error": 0.9978209786655523,
+                    "std": 3.076228146620367e-5,
+                    "max": 4.3542431173997816e-5,
+                    "min": 3.7995514954088544e-8,
+                    "mean": 2.1790213344475952e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 1.7207671844084832e-6,
+                    "relative_error": 0.9999827923281559,
+                    "std": 7.358852763512002e-8,
+                    "max": 1.7728021313168102e-6,
+                    "min": 1.6687322375001562e-6,
+                    "mean": 1.7207671844084832e-6,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                }
+            },
+            "time_start": 22
+        },
+        "window_16": {
+            "state_space_size": 194,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.259918713062255,
+                "improvement_pct": 89.72421769443774,
+                "initial_objective": 0.2896862405057984,
+                "final_objective": 0.029767527443543412
+            },
+            "window_idx": 16,
+            "generator_properties": {
+                "n_nonzeros": 555,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.21979515850939949,
+                "prob_conservation": 1
+            },
+            "time_end": 15.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 4.806567745113679e-6,
+                    "relative_error": 0.9999519343225489,
+                    "std": 3.1816610615022796e-6,
+                    "max": 7.663347952541892e-6,
+                    "min": 1.310731364833142e-6,
+                    "mean": 4.593549020829571e-6,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                },
+                "reaction_1": {
+                    "median": 9.534044414803121e-6,
+                    "relative_error": 0.9990465955585196,
+                    "std": 6.57704291369805e-5,
+                    "max": 0.00013679201673014822,
+                    "min": 4.004980731886694e-8,
+                    "mean": 3.8975038841768335e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 4
+                },
+                "reaction_2": {
+                    "median": 0.0018052667424586627,
+                    "relative_error": 0.9819473325754133,
+                    "std": 0.0025131841698088904,
+                    "max": 0.0035823563113012128,
+                    "min": 2.817717361611254e-5,
+                    "mean": 0.0018052667424586627,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                }
+            },
+            "time_start": 15
+        },
+        "window_30": {
+            "state_space_size": 257,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.34331511312485424,
+                "improvement_pct": 91.25068228689533,
+                "initial_objective": 0.3762329272733102,
+                "final_objective": 0.03291781414845595
+            },
+            "window_idx": 30,
+            "generator_properties": {
+                "n_nonzeros": 755,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.20249001540518527,
+                "prob_conservation": 1.0000000000000004
+            },
+            "time_end": 29.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": 3.1282339588585887e-7,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 3.1282339588585887e-7,
+                    "min": 3.1282339588585887e-7,
+                    "mean": 3.1282339588585887e-7,
+                    "true_rate": 0.01,
+                    "relative_error": 0.9999687176604115
+                },
+                "reaction_2": {
+                    "median": 7.523036817796314e-5,
+                    "relative_error": 0.9992476963182203,
+                    "std": 0.00010460738057006896,
+                    "max": 0.0001491989563412208,
+                    "min": 1.2617800147054904e-6,
+                    "mean": 7.523036817796314e-5,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                }
+            },
+            "time_start": 29
+        },
+        "window_7": {
+            "state_space_size": 128,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.16763245878545713,
+                "improvement_pct": 84.05300795607864,
+                "initial_objective": 0.19943659704962896,
+                "final_objective": 0.03180413826417182
+            },
+            "window_idx": 7,
+            "generator_properties": {
+                "n_nonzeros": 337,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.36273587972807786,
+                "prob_conservation": 1
+            },
+            "time_end": 6.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.001120737425464863,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.001120737425464863,
+                    "min": 0.001120737425464863,
+                    "mean": 0.001120737425464863,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9887926257453513
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 6
+        },
+        "window_17": {
+            "state_space_size": 190,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.2515006638719439,
+                "improvement_pct": 87.90599875670999,
+                "initial_objective": 0.28610182175166576,
+                "final_objective": 0.03460115787972185
+            },
+            "window_idx": 17,
+            "generator_properties": {
+                "n_nonzeros": 504,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.2254339742262374,
+                "prob_conservation": 1
+            },
+            "time_end": 16.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.00014108814130901344,
+                    "relative_error": 0.9985891185869098,
+                    "std": 0.00016516491247239675,
+                    "max": 0.00025787737093232777,
+                    "min": 2.429891168569913e-5,
+                    "mean": 0.00014108814130901344,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": 4.529240586821201e-7,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 4.529240586821201e-7,
+                    "min": 4.529240586821201e-7,
+                    "mean": 4.529240586821201e-7,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9999954707594131
+                }
+            },
+            "time_start": 16
+        },
+        "window_5": {
+            "state_space_size": 108,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.1459992984137291,
+                "improvement_pct": 78.03717255896201,
+                "initial_objective": 0.18708942626466563,
+                "final_objective": 0.04109012785093652
+            },
+            "window_idx": 5,
+            "generator_properties": {
+                "n_nonzeros": 284,
+                "max_col_sum_error": 1.3877787807814457e-17,
+                "frobenius_norm": 0.38600200157822384,
+                "prob_conservation": 0.9999999999999997
+            },
+            "time_end": 4.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": 9.430979110189279e-6,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 9.430979110189279e-6,
+                    "min": 9.430979110189279e-6,
+                    "mean": 9.430979110189279e-6,
+                    "true_rate": 0.01,
+                    "relative_error": 0.999056902088981
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 4
+        },
+        "window_9": {
+            "state_space_size": 145,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.19110294983368137,
+                "improvement_pct": 84.79676925599696,
+                "initial_objective": 0.2253658382393693,
+                "final_objective": 0.03426288840568793
+            },
+            "window_idx": 9,
+            "generator_properties": {
+                "n_nonzeros": 371,
+                "max_col_sum_error": 1.3877787807814457e-17,
+                "frobenius_norm": 0.3377297744315102,
+                "prob_conservation": 0.9999999999999999
+            },
+            "time_end": 8.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 4.0604749770538617e-5,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 4.0604749770538617e-5,
+                    "min": 4.0604749770538617e-5,
+                    "mean": 4.0604749770538617e-5,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9995939525022947
+                },
+                "reaction_1": {
+                    "median": 9.627107951017807e-6,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 9.627107951017807e-6,
+                    "min": 9.627107951017807e-6,
+                    "mean": 9.627107951017807e-6,
+                    "true_rate": 0.01,
+                    "relative_error": 0.9990372892048982
+                },
+                "reaction_2": {
+                    "median": 0.0001525595473941646,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.0001525595473941646,
+                    "min": 0.0001525595473941646,
+                    "mean": 0.0001525595473941646,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9984744045260583
+                }
+            },
+            "time_start": 8
+        },
+        "window_22": {
+            "state_space_size": 237,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.3167856078845217,
+                "improvement_pct": 92.30263797968026,
+                "initial_objective": 0.34320320070836946,
+                "final_objective": 0.026417592823847737
+            },
+            "window_idx": 22,
+            "generator_properties": {
+                "n_nonzeros": 686,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.13021861953977268,
+                "prob_conservation": 0.9999999999999999
+            },
+            "time_end": 21.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 4.5505398546111144e-5,
+                    "relative_error": 0.9995449460145389,
+                    "std": 0.0007111577796299618,
+                    "max": 0.0014502004444781117,
+                    "min": 3.094750525947551e-7,
+                    "mean": 0.0003853801791557322,
+                    "true_rate": 0.1,
+                    "n_transitions": 4
+                },
+                "reaction_1": {
+                    "median": 6.321363133198808e-8,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 6.321363133198808e-8,
+                    "min": 6.321363133198808e-8,
+                    "mean": 6.321363133198808e-8,
+                    "true_rate": 0.01,
+                    "relative_error": 0.9999936786368668
+                },
+                "reaction_2": {
+                    "median": 6.40110316914974e-7,
+                    "relative_error": 0.9999935988968308,
+                    "std": 6.995992360281374e-7,
+                    "max": 1.1348016808233978e-6,
+                    "min": 1.4541895300655e-7,
+                    "mean": 6.40110316914974e-7,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                }
+            },
+            "time_start": 21
+        },
+        "window_13": {
+            "state_space_size": 173,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.23041945905216796,
+                "improvement_pct": 88.79437335556598,
+                "initial_objective": 0.2594978153958945,
+                "final_objective": 0.02907835634372655
+            },
+            "window_idx": 13,
+            "generator_properties": {
+                "n_nonzeros": 482,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.2582448750085275,
+                "prob_conservation": 1
+            },
+            "time_end": 12.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.0001410743114016771,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.0001410743114016771,
+                    "min": 0.0001410743114016771,
+                    "mean": 0.0001410743114016771,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9985892568859833
+                },
+                "reaction_1": {
+                    "median": 5.629907039302842e-5,
+                    "relative_error": 0.9943700929606971,
+                    "std": 7.95722431123278e-5,
+                    "max": 0.00011256514309197996,
+                    "min": 3.299769407688524e-8,
+                    "mean": 5.629907039302842e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 1.6463654672210839e-6,
+                    "relative_error": 0.9999835363453278,
+                    "std": 0.00042573346717309385,
+                    "max": 0.0008528549197897898,
+                    "min": 8.730016538482735e-7,
+                    "mean": 0.00021425516309452004,
+                    "true_rate": 0.1,
+                    "n_transitions": 4
+                }
+            },
+            "time_start": 12
+        },
+        "window_20": {
+            "state_space_size": 221,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.29550246922574336,
+                "improvement_pct": 89.8731138239745,
+                "initial_objective": 0.3287996338977578,
+                "final_objective": 0.03329716467201444
+            },
+            "window_idx": 20,
+            "generator_properties": {
+                "n_nonzeros": 627,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.25172624603066157,
+                "prob_conservation": 1.0000000000000002
+            },
+            "time_end": 19.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 3.8292412638632524e-5,
+                    "relative_error": 0.9996170758736137,
+                    "std": 0.0001484599777265851,
+                    "max": 0.00027547703911879793,
+                    "min": 2.195732473131463e-6,
+                    "mean": 0.00010532172807685398,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                },
+                "reaction_1": {
+                    "median": 4.936409985178764e-6,
+                    "relative_error": 0.9995063590014822,
+                    "std": 6.928834505197747e-6,
+                    "max": 9.835835849523428e-6,
+                    "min": 3.698412083410015e-8,
+                    "mean": 4.936409985178764e-6,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 2.745005295354156e-6,
+                    "relative_error": 0.9999725499470464,
+                    "std": 1.7198802570640927e-5,
+                    "max": 3.180337316595698e-5,
+                    "min": 1.333521988843097e-6,
+                    "mean": 1.1960633483384743e-5,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                }
+            },
+            "time_start": 19
+        },
+        "window_24": {
+            "state_space_size": 233,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.31101510631826146,
+                "improvement_pct": 91.94614197641292,
+                "initial_objective": 0.33825791885650475,
+                "final_objective": 0.027242812538243268
+            },
+            "window_idx": 24,
+            "generator_properties": {
+                "n_nonzeros": 655,
+                "max_col_sum_error": 3.469446951953614e-18,
+                "frobenius_norm": 0.1259872658888568,
+                "prob_conservation": 1
+            },
+            "time_end": 23.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.00023994199329519333,
+                    "relative_error": 0.9976005800670481,
+                    "std": 5.4609194660699796e-5,
+                    "max": 0.00031738158256995727,
+                    "min": 0.00021196227568407748,
+                    "mean": 0.00025642861718307603,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                },
+                "reaction_1": {
+                    "median": 2.16722518285384e-8,
+                    "relative_error": 0.9999978327748171,
+                    "std": 5.4964520158107064e-9,
+                    "max": 2.5558830321384622e-8,
+                    "min": 1.7785673335692183e-8,
+                    "mean": 2.16722518285384e-8,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 1.071150581848902e-6,
+                    "relative_error": 0.9999892884941816,
+                    "std": 0.0005402041473278929,
+                    "max": 0.0009365473343407381,
+                    "min": 7.015683245663495e-7,
+                    "mean": 0.00031277335108238443,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                }
+            },
+            "time_start": 23
+        },
+        "window_26": {
+            "state_space_size": 247,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.3260252620089857,
+                "improvement_pct": 92.04173714475512,
+                "initial_objective": 0.3542145901660264,
+                "final_objective": 0.028189328157040734
+            },
+            "window_idx": 26,
+            "generator_properties": {
+                "n_nonzeros": 706,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.1613038681015332,
+                "prob_conservation": 1
+            },
+            "time_end": 25.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 5.975346576567887e-7,
+                    "relative_error": 0.9999940246534235,
+                    "std": 8.062980621827246e-8,
+                    "max": 6.545485403994865e-7,
+                    "min": 5.405207749140911e-7,
+                    "mean": 5.975346576567887e-7,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": 3.5462219036594617e-6,
+                    "relative_error": 0.9996453778096341,
+                    "std": 4.938938107230716e-6,
+                    "max": 7.038578531142953e-6,
+                    "min": 5.386527617597065e-8,
+                    "mean": 3.5462219036594617e-6,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 0.0004162357761336826,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.0004162357761336826,
+                    "min": 0.0004162357761336826,
+                    "mean": 0.0004162357761336826,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9958376422386631
+                }
+            },
+            "time_start": 25
+        },
+        "window_10": {
+            "state_space_size": 168,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.22161277126701331,
+                "improvement_pct": 89.41853834570688,
+                "initial_objective": 0.24783761328128812,
+                "final_objective": 0.026224842014274795
+            },
+            "window_idx": 10,
+            "generator_properties": {
+                "n_nonzeros": 471,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.19670181057968167,
+                "prob_conservation": 1
+            },
+            "time_end": 9.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.00011445203941927749,
+                    "relative_error": 0.9988554796058072,
+                    "std": 0.00015876674631558468,
+                    "max": 0.0002267170823659517,
+                    "min": 2.1869964726032563e-6,
+                    "mean": 0.00011445203941927749,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": 4.906151778132665e-5,
+                    "relative_error": 0.9950938482218674,
+                    "std": 6.933647801106778e-5,
+                    "max": 9.808981156654461e-5,
+                    "min": 3.3223996108686324e-8,
+                    "mean": 4.906151778132665e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 9
+        },
+        "window_3": {
+            "state_space_size": 87,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.13096907526243157,
+                "improvement_pct": 57.22746318937495,
+                "initial_objective": 0.22885703465315888,
+                "final_objective": 0.09788795939072732
+            },
+            "window_idx": 3,
+            "generator_properties": {
+                "n_nonzeros": 233,
+                "max_col_sum_error": 4.163336342344337e-17,
+                "frobenius_norm": 1.0828919170735807,
+                "prob_conservation": 0.9999999999999998
+            },
+            "time_end": 2.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 2
+        },
+        "window_21": {
+            "state_space_size": 218,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.2913839534544674,
+                "improvement_pct": 91.3431933458012,
+                "initial_objective": 0.31899908770581814,
+                "final_objective": 0.027615134251350752
+            },
+            "window_idx": 21,
+            "generator_properties": {
+                "n_nonzeros": 637,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.14651835945665523,
+                "prob_conservation": 1
+            },
+            "time_end": 20.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 1.4315088873866823e-6,
+                    "relative_error": 0.9999856849111262,
+                    "std": 0.0004916835254027928,
+                    "max": 0.0009845525598777473,
+                    "min": 6.942464415687581e-7,
+                    "mean": 0.0002470274560235224,
+                    "true_rate": 0.1,
+                    "n_transitions": 4
+                },
+                "reaction_1": {
+                    "median": 3.6298288172804294e-5,
+                    "relative_error": 0.9963701711827196,
+                    "std": 4.024198060202934e-5,
+                    "max": 6.475366554487675e-5,
+                    "min": 7.842910800731843e-6,
+                    "mean": 3.6298288172804294e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 0.0001630156059771864,
+                    "relative_error": 0.9983698439402281,
+                    "std": 0.00017873568371615437,
+                    "max": 0.0002894008199728931,
+                    "min": 3.663039198147967e-5,
+                    "mean": 0.0001630156059771864,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                }
+            },
+            "time_start": 20
+        },
+        "window_27": {
+            "state_space_size": 248,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.3292182765031412,
+                "improvement_pct": 91.82554425240583,
+                "initial_objective": 0.35852581020179,
+                "final_objective": 0.029307533698648736
+            },
+            "window_idx": 27,
+            "generator_properties": {
+                "n_nonzeros": 722,
+                "max_col_sum_error": 1.3877787807814457e-17,
+                "frobenius_norm": 0.24496326544865218,
+                "prob_conservation": 1
+            },
+            "time_end": 26.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.0003742912711362675,
+                    "relative_error": 0.9962570872886374,
+                    "std": 0.0005270269532493161,
+                    "max": 0.0007469556036469444,
+                    "min": 1.6269386255905519e-6,
+                    "mean": 0.0003742912711362675,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": 1.3717802160843203e-5,
+                    "relative_error": 0.9986282197839157,
+                    "std": 1.9323985229052544e-5,
+                    "max": 2.738192315585494e-5,
+                    "min": 5.368116583146884e-8,
+                    "mean": 1.3717802160843203e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 2.6376057318979795e-6,
+                    "relative_error": 0.9999736239426811,
+                    "std": 5.291610922701791e-6,
+                    "max": 1.1246710621066582e-5,
+                    "min": 1.6114993778683014e-6,
+                    "mean": 5.165271910277621e-6,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                }
+            },
+            "time_start": 26
+        },
+        "window_1": {
+            "state_space_size": 45,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 5.443312185818776,
+                "improvement_pct": 60.67303362349808,
+                "initial_objective": 8.971551051158638,
+                "final_objective": 3.5282388653398624
+            },
+            "window_idx": 1,
+            "generator_properties": {
+                "n_nonzeros": 33,
+                "max_col_sum_error": 1.1102230246251565e-16,
+                "frobenius_norm": 5.74795591230384,
+                "prob_conservation": 1.0000000000000004
+            },
+            "time_end": 0.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 0
+        },
+        "window_25": {
+            "state_space_size": 237,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.3127451014692219,
+                "improvement_pct": 91.30904012037853,
+                "initial_objective": 0.3425127468834522,
+                "final_objective": 0.02976764541423026
+            },
+            "window_idx": 25,
+            "generator_properties": {
+                "n_nonzeros": 681,
+                "max_col_sum_error": 3.469446951953614e-18,
+                "frobenius_norm": 0.14726549495621274,
+                "prob_conservation": 0.9999999999999999
+            },
+            "time_end": 24.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 2.4977100935801433e-5,
+                    "relative_error": 0.999750228990642,
+                    "std": 3.107565173097238e-5,
+                    "max": 4.695090500456348e-5,
+                    "min": 3.003296867039388e-6,
+                    "mean": 2.4977100935801433e-5,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": 0.00012149693150075845,
+                    "relative_error": 0.9878503068499241,
+                    "std": 0.0001641854892617802,
+                    "max": 0.0002375936043301943,
+                    "min": 5.400258671322594e-6,
+                    "mean": 0.00012149693150075845,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 0.0001011523175312384,
+                    "relative_error": 0.9989884768246876,
+                    "std": 0.00013922919822410506,
+                    "max": 0.00019960222773466913,
+                    "min": 2.7024073278076863e-6,
+                    "mean": 0.0001011523175312384,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                }
+            },
+            "time_start": 24
+        },
+        "window_29": {
+            "state_space_size": 251,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.3360798924234225,
+                "improvement_pct": 91.96641065229996,
+                "initial_objective": 0.3654376527687368,
+                "final_objective": 0.029357760345314295
+            },
+            "window_idx": 29,
+            "generator_properties": {
+                "n_nonzeros": 748,
+                "max_col_sum_error": 1.734723475976807e-18,
+                "frobenius_norm": 0.14890189009597024,
+                "prob_conservation": 1
+            },
+            "time_end": 28.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.0006686771041386883,
+                    "relative_error": 0.9933132289586131,
+                    "std": 0.0005637158470358871,
+                    "max": 0.0014386869813958279,
+                    "min": 0.00034049184352655314,
+                    "mean": 0.0008159519763536897,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": 1.460432487484129e-6,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 1.460432487484129e-6,
+                    "min": 1.460432487484129e-6,
+                    "mean": 1.460432487484129e-6,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9999853956751251
+                }
+            },
+            "time_start": 28
+        },
+        "window_4": {
+            "state_space_size": 99,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.13072408270438685,
+                "improvement_pct": 78.45983913441184,
+                "initial_objective": 0.16661273352911113,
+                "final_objective": 0.03588865082472428
+            },
+            "window_idx": 4,
+            "generator_properties": {
+                "n_nonzeros": 266,
+                "max_col_sum_error": 1.3877787807814457e-17,
+                "frobenius_norm": 0.3987652661716409,
+                "prob_conservation": 1
+            },
+            "time_end": 3.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": 3.2874204634570455e-5,
+                    "relative_error": 0.9996712579536543,
+                    "std": 4.527644463322838e-5,
+                    "max": 6.488948566274351e-5,
+                    "min": 8.589236063974007e-7,
+                    "mean": 3.2874204634570455e-5,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                }
+            },
+            "time_start": 3
+        },
+        "window_6": {
+            "state_space_size": 114,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.15210726924834458,
+                "improvement_pct": 85.11049932815429,
+                "initial_objective": 0.17871739732353795,
+                "final_objective": 0.026610128075193362
+            },
+            "window_idx": 6,
+            "generator_properties": {
+                "n_nonzeros": 308,
+                "max_col_sum_error": 1.734723475976807e-18,
+                "frobenius_norm": 0.24844130052982255,
+                "prob_conservation": 1
+            },
+            "time_end": 5.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.00012395107769735267,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.00012395107769735267,
+                    "min": 0.00012395107769735267,
+                    "mean": 0.00012395107769735267,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9987604892230264
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": 4.2638533085931315e-5,
+                    "relative_error": 0.9995736146691406,
+                    "std": 3.419098610005038e-6,
+                    "max": 4.5056200898611376e-5,
+                    "min": 4.0220865273251254e-5,
+                    "mean": 4.2638533085931315e-5,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                }
+            },
+            "time_start": 5
+        },
+        "window_18": {
+            "state_space_size": 198,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.2631121675628845,
+                "improvement_pct": 89.59056705949298,
+                "initial_objective": 0.29368289117777746,
+                "final_objective": 0.030570723614892933
+            },
+            "window_idx": 18,
+            "generator_properties": {
+                "n_nonzeros": 553,
+                "max_col_sum_error": 3.469446951953614e-18,
+                "frobenius_norm": 0.20200419329496613,
+                "prob_conservation": 0.9999999999999999
+            },
+            "time_end": 17.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.0004119669365757537,
+                    "relative_error": 0.9958803306342425,
+                    "std": 0.00023731651908984468,
+                    "max": 0.0004127351113585016,
+                    "min": 1.3072937760575254e-6,
+                    "mean": 0.00027533644723677094,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                },
+                "reaction_1": {
+                    "median": 3.199401189183757e-5,
+                    "relative_error": 0.9968005988108163,
+                    "std": 4.4586404818524584e-5,
+                    "max": 6.352136108774486e-5,
+                    "min": 4.6666269593027845e-7,
+                    "mean": 3.199401189183757e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 17
+        },
+        "window_2": {
+            "state_space_size": 73,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.12604985585145181,
+                "improvement_pct": 41.62785390937694,
+                "initial_objective": 0.3028017157114561,
+                "final_objective": 0.17675185986000427
+            },
+            "window_idx": 2,
+            "generator_properties": {
+                "n_nonzeros": 194,
+                "max_col_sum_error": 1.1102230246251565e-16,
+                "frobenius_norm": 1.1283894798541725,
+                "prob_conservation": 0.9999999999999999
+            },
+            "time_end": 1.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 1
+        },
+        "window_19": {
+            "state_space_size": 205,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.2722817192193039,
+                "improvement_pct": 89.82889997304964,
+                "initial_objective": 0.30311149229367557,
+                "final_objective": 0.03082977307437169
+            },
+            "window_idx": 19,
+            "generator_properties": {
+                "n_nonzeros": 570,
+                "max_col_sum_error": 1.0408340855860843e-17,
+                "frobenius_norm": 0.24030925297849198,
+                "prob_conservation": 1.0000000000000002
+            },
+            "time_end": 18.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.00015807621152275718,
+                    "relative_error": 0.9984192378847725,
+                    "std": 0.0002129271977989796,
+                    "max": 0.000308638476985465,
+                    "min": 7.513946060049367e-6,
+                    "mean": 0.00015807621152275718,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": 1.1470258215239465e-5,
+                    "relative_error": 0.9988529741784762,
+                    "std": 6.23347132694198e-5,
+                    "max": 0.00011327160675719354,
+                    "min": 4.747372932438981e-8,
+                    "mean": 4.1596446233919125e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 3
+                },
+                "reaction_2": {
+                    "median": 5.974499846637629e-5,
+                    "relative_error": 0.9994025500153362,
+                    "std": 7.741481191666011e-5,
+                    "max": 0.00011448553693692781,
+                    "min": 5.004459995824774e-6,
+                    "mean": 5.974499846637629e-5,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                }
+            },
+            "time_start": 18
+        },
+        "window_12": {
+            "state_space_size": 169,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.22480100343872209,
+                "improvement_pct": 89.23336688306156,
+                "initial_objective": 0.2519248250862472,
+                "final_objective": 0.027123821647525116
+            },
+            "window_idx": 12,
+            "generator_properties": {
+                "n_nonzeros": 475,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.24923221347812735,
+                "prob_conservation": 0.9999999999999998
+            },
+            "time_end": 11.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.003451505448407579,
+                    "relative_error": 0.9654849455159242,
+                    "std": 0.004868555610958212,
+                    "max": 0.006894094135499945,
+                    "min": 8.916761315212699e-6,
+                    "mean": 0.003451505448407579,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": 1.0449460843456845e-5,
+                    "relative_error": 0.9989550539156544,
+                    "std": 1.0570363111809708e-5,
+                    "max": 1.7923836279421625e-5,
+                    "min": 2.9750854074920633e-6,
+                    "mean": 1.0449460843456845e-5,
+                    "true_rate": 0.01,
+                    "n_transitions": 2
+                },
+                "reaction_2": {
+                    "median": 1.3138279164001462e-5,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 1.3138279164001462e-5,
+                    "min": 1.3138279164001462e-5,
+                    "mean": 1.3138279164001462e-5,
+                    "true_rate": 0.1,
+                    "relative_error": 0.99986861720836
+                }
+            },
+            "time_start": 11
+        },
+        "window_8": {
+            "state_space_size": 140,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.1856226188261819,
+                "improvement_pct": 84.64337840700541,
+                "initial_objective": 0.21929963373345107,
+                "final_objective": 0.03367701490726918
+            },
+            "window_idx": 8,
+            "generator_properties": {
+                "n_nonzeros": 378,
+                "max_col_sum_error": 6.938893903907228e-18,
+                "frobenius_norm": 0.29214576057512387,
+                "prob_conservation": 1
+            },
+            "time_end": 7.95,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": 1.2462618966613706e-6,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 1.2462618966613706e-6,
+                    "min": 1.2462618966613706e-6,
+                    "mean": 1.2462618966613706e-6,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9999875373810333
+                }
+            },
+            "time_start": 7
+        }
+    },
+    "metadata": {
+        "end_time": "2025-12-29 11:11:11",
+        "true_rates": [
+            0.01,
+            0.1,
+            0.1
+        ],
+        "duration_seconds": 350.942,
+        "experiment_type": "inverse_cme",
+        "tspan": [
+            0,
+            200
+        ],
+        "n_trajectories": 5000,
+        "config": {
+            "λ_prob_conservation": 10,
+            "snapshots_per_window": 20,
+            "λ_frobenius": 0.1,
+            "dt_window": 2,
+            "max_windows": 30,
+            "mass_threshold": 0.999,
+            "dt_snapshot": 0.05
+        },
+        "n_species": 4,
+        "n_reactions": 3,
+        "tspan_learning": [
+            0,
+            150
+        ],
+        "seed": 1234
+    }
+}

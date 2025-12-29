@@ -1,0 +1,816 @@
+{
+    "statistics": {
+        "summary": {
+            "min_relative_error": 0.9560834349315088,
+            "mean_relative_error": 1.3099951607266036,
+            "max_relative_error": 1.6239239701975918,
+            "n_reactions_recovered": 3,
+            "total_transitions": 20,
+            "median_relative_error": 1.34997807705071,
+            "total_windows": 10
+        },
+        "error_decomposition": {
+            "biases": {
+                "2": 0.1623923970197592,
+                "3": 0.134997807705071,
+                "1": 0.009560834349315088
+            },
+            "sampling_variances": {
+                "2": 0.012147379827401506,
+                "3": 0.005994692560535262,
+                "1": 1.3730494171803763e-7
+            },
+            "window_inconsistency": 0.15723133815006496,
+            "bias_contribution": 0.6173916586874569,
+            "sampling_variance_contribution": 0.08706932873423437,
+            "window_variances": {
+                "2": 0.12233927977857784,
+                "3": 0.06788333931285126,
+                "1": 2.746098834360753e-7
+            }
+        },
+        "aggregated_rates": {
+            "reaction_3": {
+                "median": 0.234997807705071,
+                "relative_error": 1.34997807705071,
+                "std": 0.24484061265515697,
+                "absolute_error": 0.134997807705071,
+                "mean": 0.27975771044869535,
+                "true_rate": 0.1,
+                "n_transitions": 10
+            },
+            "reaction_1": {
+                "median": 0.00043916565068491213,
+                "relative_error": 0.9560834349315088,
+                "std": 0.0005240323305255843,
+                "absolute_error": 0.009560834349315088,
+                "mean": 0.00043916565068491213,
+                "true_rate": 0.01,
+                "n_transitions": 2
+            },
+            "reaction_2": {
+                "median": 0.2623923970197592,
+                "relative_error": 1.6239239701975918,
+                "std": 0.3117355267197052,
+                "absolute_error": 0.1623923970197592,
+                "mean": 0.33694620326694286,
+                "true_rate": 0.1,
+                "n_transitions": 8
+            }
+        }
+    },
+    "rates": {
+        "reaction_3": [
+            {
+                "median": 0.3538756908101769,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 1,
+                "time": 0,
+                "mean": 0.3538756908101769,
+                "relative_error": 2.538756908101769
+            },
+            {
+                "median": 0.0991778311637791,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 2,
+                "time": 1,
+                "mean": 0.0991778311637791,
+                "relative_error": 0.0082216883622091
+            },
+            {
+                "median": 0.6967656405128084,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 3,
+                "time": 2,
+                "mean": 0.6967656405128084,
+                "relative_error": 5.967656405128084
+            },
+            {
+                "median": 0.39771238432650846,
+                "relative_error": 2.9771238432650846,
+                "std": 0.09361234519929283,
+                "window_idx": 5,
+                "time": 4,
+                "mean": 0.39771238432650846,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.593691854629383,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 6,
+                "time": 5,
+                "mean": 0.593691854629383,
+                "relative_error": 4.93691854629383
+            },
+            {
+                "median": 0.08947747446095203,
+                "relative_error": 0.10522525539047978,
+                "std": 0.0692960130203453,
+                "window_idx": 7,
+                "time": 6,
+                "mean": 0.08947747446095203,
+                "n_transitions": 2
+            },
+            {
+                "median": 0.03501681540947455,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 8,
+                "time": 7,
+                "mean": 0.03501681540947455,
+                "relative_error": 0.6498318459052546
+            },
+            {
+                "median": 0.0446695543864105,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 10,
+                "time": 9,
+                "mean": 0.0446695543864105,
+                "relative_error": 0.553304456135895
+            }
+        ],
+        "reaction_1": [
+            {
+                "median": 6.861883620928118e-5,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 8,
+                "time": 7,
+                "mean": 6.861883620928118e-5,
+                "relative_error": 0.9931381163790718
+            },
+            {
+                "median": 0.0008097124651605431,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 9,
+                "time": 8,
+                "mean": 0.0008097124651605431,
+                "relative_error": 0.9190287534839457
+            }
+        ],
+        "reaction_2": [
+            {
+                "median": 0.768496034875179,
+                "relative_error": 6.68496034875179,
+                "std": 0.20593069025663677,
+                "window_idx": 1,
+                "time": 0,
+                "mean": 0.6660716967172532,
+                "n_transitions": 3
+            },
+            {
+                "median": 0.16192503623751217,
+                "relative_error": 0.6192503623751217,
+                "std": 0.14143320630362088,
+                "window_idx": 3,
+                "time": 2,
+                "mean": 0.20491874722331657,
+                "n_transitions": 3
+            },
+            {
+                "median": 0.000355369077373379,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 5,
+                "time": 4,
+                "mean": 0.000355369077373379,
+                "relative_error": 0.9964463092262662
+            },
+            {
+                "median": 0.08224292523646025,
+                "n_transitions": 1,
+                "std": null,
+                "window_idx": 9,
+                "time": 8,
+                "mean": 0.08224292523646025,
+                "relative_error": 0.17757074763539757
+            }
+        ]
+    },
+    "diagnostics": {
+        "theoretical_bounds": [
+            {
+                "w_eff_mean": 0.09650820000000002,
+                "uniqueness_threshold": 0.3,
+                "relaxation_time_estimate": 1.1,
+                "conditioning_ratio": 0.10615902000000002,
+                "uniqueness_product": 0.19301640000000003,
+                "w_eff_std": 0.014931798174609533,
+                "conditioning_threshold": 5,
+                "uniqueness_satisfied": true,
+                "lambda_gap_estimate": 0.9090909090909091,
+                "conditioning_satisfied": false
+            }
+        ],
+        "state_space_statistics": [
+            {
+                "global_size": 570,
+                "inferred_reactions": 3,
+                "compression_ratio": 13.571428571428571,
+                "fsp_size": 42,
+                "stoichiometry": [
+                    [
+                        -1,
+                        -1,
+                        1,
+                        0
+                    ],
+                    [
+                        0,
+                        1,
+                        -1,
+                        1
+                    ],
+                    [
+                        1,
+                        1,
+                        -1,
+                        0
+                    ]
+                ]
+            }
+        ],
+        "trajectory_statistics": [
+            {
+                "n_trajectories": 10000,
+                "median_length": 203,
+                "std_length": 19.87528268191848,
+                "max_length": 299,
+                "mean_length": 204.579,
+                "min_length": 135
+            }
+        ],
+        "distribution_statistics": [
+            {
+                "mean_support_size": 91.65066666666667,
+                "std_support_size": 54.941930344946094,
+                "min_support_size": 9,
+                "max_support_size": 178,
+                "n_distributions": 1500,
+                "time_range": [
+                    0,
+                    150
+                ]
+            }
+        ]
+    },
+    "windows": {
+        "window_7": {
+            "state_space_size": 102,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.004775424467122788,
+                "improvement_pct": 72.67991128877675,
+                "initial_objective": 0.006570487473696477,
+                "final_objective": 0.0017950630065736888
+            },
+            "window_idx": 7,
+            "generator_properties": {
+                "n_nonzeros": 246,
+                "max_col_sum_error": 4.440892098500626e-16,
+                "frobenius_norm": 28.70918845154914,
+                "prob_conservation": 0.9999999999999999
+            },
+            "time_end": 6.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.08947747446095203,
+                    "relative_error": 0.10522525539047978,
+                    "std": 0.0692960130203453,
+                    "max": 0.1384771551768295,
+                    "min": 0.04047779374507458,
+                    "mean": 0.08947747446095203,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 6
+        },
+        "window_10": {
+            "state_space_size": 126,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.004035475378109503,
+                "improvement_pct": 67.94885896282207,
+                "initial_objective": 0.005938989174663693,
+                "final_objective": 0.00190351379655419
+            },
+            "window_idx": 10,
+            "generator_properties": {
+                "n_nonzeros": 303,
+                "max_col_sum_error": 4.440892098500626e-16,
+                "frobenius_norm": 23.338954888167155,
+                "prob_conservation": 1
+            },
+            "time_end": 9.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.0446695543864105,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.0446695543864105,
+                    "min": 0.0446695543864105,
+                    "mean": 0.0446695543864105,
+                    "true_rate": 0.1,
+                    "relative_error": 0.553304456135895
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 9
+        },
+        "window_4": {
+            "state_space_size": 76,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.010093468217896313,
+                "improvement_pct": 83.71286451899651,
+                "initial_objective": 0.012057248639013966,
+                "final_objective": 0.001963780421117652
+            },
+            "window_idx": 4,
+            "generator_properties": {
+                "n_nonzeros": 144,
+                "max_col_sum_error": 8.881784197001252e-16,
+                "frobenius_norm": 25.909767742646242,
+                "prob_conservation": 1
+            },
+            "time_end": 3.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 3
+        },
+        "window_5": {
+            "state_space_size": 85,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.0077495829970263665,
+                "improvement_pct": 79.57836624420324,
+                "initial_objective": 0.009738303715918361,
+                "final_objective": 0.001988720718891995
+            },
+            "window_idx": 5,
+            "generator_properties": {
+                "n_nonzeros": 195,
+                "max_col_sum_error": 6.661338147750939e-16,
+                "frobenius_norm": 35.02781263356868,
+                "prob_conservation": 1.0000000000000002
+            },
+            "time_end": 4.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.39771238432650846,
+                    "relative_error": 2.9771238432650846,
+                    "std": 0.09361234519929283,
+                    "max": 0.46390630841970437,
+                    "min": 0.33151846023331255,
+                    "mean": 0.39771238432650846,
+                    "true_rate": 0.1,
+                    "n_transitions": 2
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": 0.000355369077373379,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.000355369077373379,
+                    "min": 0.000355369077373379,
+                    "mean": 0.000355369077373379,
+                    "true_rate": 0.1,
+                    "relative_error": 0.9964463092262662
+                }
+            },
+            "time_start": 4
+        },
+        "window_6": {
+            "state_space_size": 93,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.006272513067701071,
+                "improvement_pct": 76.20056466885491,
+                "initial_objective": 0.00823158344686756,
+                "final_objective": 0.0019590703791664884
+            },
+            "window_idx": 6,
+            "generator_properties": {
+                "n_nonzeros": 207,
+                "max_col_sum_error": 3.3306690738754696e-16,
+                "frobenius_norm": 29.798411262177073,
+                "prob_conservation": 1.0000000000000002
+            },
+            "time_end": 5.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.593691854629383,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.593691854629383,
+                    "min": 0.593691854629383,
+                    "mean": 0.593691854629383,
+                    "true_rate": 0.1,
+                    "relative_error": 4.93691854629383
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 5
+        },
+        "window_9": {
+            "state_space_size": 115,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.004321504707832287,
+                "improvement_pct": 68.21334524513011,
+                "initial_objective": 0.0063352774919667315,
+                "final_objective": 0.0020137727841344445
+            },
+            "window_idx": 9,
+            "generator_properties": {
+                "n_nonzeros": 285,
+                "max_col_sum_error": 3.3306690738754696e-16,
+                "frobenius_norm": 25.91637349433696,
+                "prob_conservation": 0.9999999999999998
+            },
+            "time_end": 8.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                },
+                "reaction_1": {
+                    "median": 0.0008097124651605431,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.0008097124651605431,
+                    "min": 0.0008097124651605431,
+                    "mean": 0.0008097124651605431,
+                    "true_rate": 0.01,
+                    "relative_error": 0.9190287534839457
+                },
+                "reaction_2": {
+                    "median": 0.08224292523646025,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.08224292523646025,
+                    "min": 0.08224292523646025,
+                    "mean": 0.08224292523646025,
+                    "true_rate": 0.1,
+                    "relative_error": 0.17757074763539757
+                }
+            },
+            "time_start": 8
+        },
+        "window_2": {
+            "state_space_size": 55,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.07092250654926532,
+                "improvement_pct": 92.49281114587556,
+                "initial_objective": 0.07667893933660368,
+                "final_objective": 0.005756432787338357
+            },
+            "window_idx": 2,
+            "generator_properties": {
+                "n_nonzeros": 109,
+                "max_col_sum_error": 1.7763568394002505e-15,
+                "frobenius_norm": 67.53649944779727,
+                "prob_conservation": 0.9999999999999997
+            },
+            "time_end": 1.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.0991778311637791,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.0991778311637791,
+                    "min": 0.0991778311637791,
+                    "mean": 0.0991778311637791,
+                    "true_rate": 0.1,
+                    "relative_error": 0.0082216883622091
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 1
+        },
+        "window_3": {
+            "state_space_size": 67,
+            "convergence": {
+                "return_code": "XTOL_REACHED",
+                "success": true,
+                "improvement": 0.02826993224369049,
+                "improvement_pct": 93.09572214136435,
+                "initial_objective": 0.030366521246554225,
+                "final_objective": 0.0020965890028637373
+            },
+            "window_idx": 3,
+            "generator_properties": {
+                "n_nonzeros": 158,
+                "max_col_sum_error": 8.881784197001252e-16,
+                "frobenius_norm": 49.22569347196587,
+                "prob_conservation": 1
+            },
+            "time_end": 2.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.6967656405128084,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.6967656405128084,
+                    "min": 0.6967656405128084,
+                    "mean": 0.6967656405128084,
+                    "true_rate": 0.1,
+                    "relative_error": 5.967656405128084
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": 0.16192503623751217,
+                    "relative_error": 0.6192503623751217,
+                    "std": 0.14143320630362088,
+                    "max": 0.36285975780200624,
+                    "min": 0.08997144763043129,
+                    "mean": 0.20491874722331657,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                }
+            },
+            "time_start": 2
+        },
+        "window_8": {
+            "state_space_size": 110,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 0.0038665614102995553,
+                "improvement_pct": 66.24775459956167,
+                "initial_objective": 0.005836516926001804,
+                "final_objective": 0.0019699555157022485
+            },
+            "window_idx": 8,
+            "generator_properties": {
+                "n_nonzeros": 253,
+                "max_col_sum_error": 2.220446049250313e-16,
+                "frobenius_norm": 20.38677381495666,
+                "prob_conservation": 1
+            },
+            "time_end": 7.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.03501681540947455,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.03501681540947455,
+                    "min": 0.03501681540947455,
+                    "mean": 0.03501681540947455,
+                    "true_rate": 0.1,
+                    "relative_error": 0.6498318459052546
+                },
+                "reaction_1": {
+                    "median": 6.861883620928118e-5,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 6.861883620928118e-5,
+                    "min": 6.861883620928118e-5,
+                    "mean": 6.861883620928118e-5,
+                    "true_rate": 0.01,
+                    "relative_error": 0.9931381163790718
+                },
+                "reaction_2": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.1,
+                    "relative_error": null
+                }
+            },
+            "time_start": 7
+        },
+        "window_1": {
+            "state_space_size": 37,
+            "convergence": {
+                "return_code": "FTOL_REACHED",
+                "success": true,
+                "improvement": 1.343170628175871,
+                "improvement_pct": 87.03109956801019,
+                "initial_objective": 1.5433225994418862,
+                "final_objective": 0.20015197126601503
+            },
+            "window_idx": 1,
+            "generator_properties": {
+                "n_nonzeros": 76,
+                "max_col_sum_error": 1.7763568394002505e-15,
+                "frobenius_norm": 71.4847843127509,
+                "prob_conservation": 0.9999999999999999
+            },
+            "time_end": 0.9,
+            "rate_estimates": {
+                "reaction_3": {
+                    "median": 0.3538756908101769,
+                    "n_transitions": 1,
+                    "std": null,
+                    "max": 0.3538756908101769,
+                    "min": 0.3538756908101769,
+                    "mean": 0.3538756908101769,
+                    "true_rate": 0.1,
+                    "relative_error": 2.538756908101769
+                },
+                "reaction_1": {
+                    "median": null,
+                    "n_transitions": 0,
+                    "std": null,
+                    "max": null,
+                    "min": null,
+                    "mean": null,
+                    "true_rate": 0.01,
+                    "relative_error": null
+                },
+                "reaction_2": {
+                    "median": 0.768496034875179,
+                    "relative_error": 6.68496034875179,
+                    "std": 0.20593069025663677,
+                    "max": 0.8007072890029566,
+                    "min": 0.42901176627362375,
+                    "mean": 0.6660716967172532,
+                    "true_rate": 0.1,
+                    "n_transitions": 3
+                }
+            },
+            "time_start": 0
+        }
+    },
+    "metadata": {
+        "end_time": "2025-12-29 10:43:02",
+        "true_rates": [
+            0.01,
+            0.1,
+            0.1
+        ],
+        "duration_seconds": 113.609,
+        "experiment_type": "inverse_cme",
+        "tspan": [
+            0,
+            200
+        ],
+        "n_trajectories": 10000,
+        "config": {
+            "λ_prob_conservation": 0.1,
+            "snapshots_per_window": 10,
+            "λ_frobenius": 1.0e-6,
+            "dt_window": 2,
+            "max_windows": 10,
+            "mass_threshold": 0.99,
+            "dt_snapshot": 0.1
+        },
+        "n_species": 4,
+        "n_reactions": 3,
+        "tspan_learning": [
+            0,
+            150
+        ],
+        "seed": 1234
+    }
+}

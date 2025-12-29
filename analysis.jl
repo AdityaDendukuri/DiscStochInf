@@ -41,16 +41,89 @@ function (prop::MassActionPropensity)(state::Tuple, reaction_idx::Int)
     return propensity
 end
 
+"""
+    extract_rates(learned_gen, propensity_fn, stoich_vecs)
 
+Extract rates from a single learned generator.
+"""
+function extract_rates(
+    learned_gen::LearnedGenerator,
+    propensity_fn::PropensityFunction,
+    stoich_vecs::Vector{Vector{Int}}
+)
+    A = learned_gen.A
+    X = learned_gen.state_space
+    X_set = Set(X)
+    
+    rate_stats = Dict{Int, NamedTuple}()
+    
+    for (j, ν) in enumerate(stoich_vecs)
+        rates_found = Float64[]
+        
+        # Only iterate over states IN the learned generator
+        for (idx_from, state_from) in enumerate(X)
+            # Compute target state
+            state_to_tuple = tuple((collect(Tuple(state_from)) .+ ν)...)
+            state_to = CartesianIndex(state_to_tuple)
+            
+            # Both states must be in learned space
+            if state_to ∈ X_set
+                idx_to = findfirst(==(state_to), X)
+                
+                if idx_to !== nothing
+                    rate_entry = A[idx_to, idx_from]
+                    
+                    if abs(rate_entry) > 1e-10
+                        propensity = propensity_fn(Tuple(state_from), j)
+                        
+                        if propensity > 1e-10
+                            k_estimate = rate_entry / propensity
+                            
+                            # TIGHTER OUTLIER FILTER
+                            if k_estimate > 0 && k_estimate < 1.0
+                                push!(rates_found, k_estimate)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        
+        # Compute statistics
+        if !isempty(rates_found)
+            rate_stats[j] = (
+                mean = mean(rates_found),
+                median = median(rates_found),
+                std = std(rates_found),
+                min = minimum(rates_found),
+                max = maximum(rates_found),
+                n_transitions = length(rates_found)
+            )
+        else
+            rate_stats[j] = (
+                mean = NaN,
+                median = NaN,
+                std = NaN,
+                min = NaN,
+                max = NaN,
+                n_transitions = 0
+            )
+        end
+    end
+    
+    return rate_stats
+end
+
+"""
+    extract_rates_aggregated(learned_generators, propensity_fn, stoich_vecs)
+
+Pool transitions from ALL windows to get better statistics.
+"""
 function extract_rates_aggregated(
     learned_generators::Vector{LearnedGenerator},
     propensity_fn::PropensityFunction,
     stoich_vecs::Vector{Vector{Int}}
 )
-    """
-    Pool transitions from ALL windows to get better statistics
-    """
-    
     rate_stats = Dict{Int, NamedTuple}()
     
     for (j, ν) in enumerate(stoich_vecs)
@@ -78,7 +151,8 @@ function extract_rates_aggregated(
                             if propensity > 1e-10
                                 k_estimate = rate_entry / propensity
                                 
-                                if k_estimate > 0 && k_estimate < 100
+                                # TIGHTER OUTLIER FILTER
+                                if k_estimate > 0 && k_estimate < 1.0
                                     push!(rates_found, k_estimate)
                                 end
                             end
@@ -113,88 +187,46 @@ function extract_rates_aggregated(
     return rate_stats
 end
 
-function extract_rates(
-    learned_gen::LearnedGenerator,
-    propensity_fn::PropensityFunction,
-    stoich_vecs::Vector{Vector{Int}}
-)
-    """
-    Extract rates ONLY from transitions present in the learned generator.
-    Do NOT extrapolate to states outside the learned space.
-    """
-    A = learned_gen.A
-    X = learned_gen.state_space
-    X_set = Set(X)
-    
-    rate_stats = Dict{Int, NamedTuple}()
-    
-    for (j, ν) in enumerate(stoich_vecs)
-        rates_found = Float64[]
-        
-        # Only iterate over states IN the learned generator
-        for (idx_from, state_from) in enumerate(X)
-            # Compute target state
-            state_to_tuple = tuple((collect(Tuple(state_from)) .+ ν)...)
-            state_to = CartesianIndex(state_to_tuple)
-            
-            # CRITICAL: Both states must be in learned space
-            if state_to ∈ X_set
-                idx_to = findfirst(==(state_to), X)
-                
-                if idx_to !== nothing
-                    rate_entry = A[idx_to, idx_from]
-                    
-                    if abs(rate_entry) > 1e-10
-                        propensity = propensity_fn(Tuple(state_from), j)
-                        
-                        if propensity > 1e-10
-                            k_estimate = rate_entry / propensity
-                            
-                            # Sanity check: rates should be positive and reasonable
-                            if k_estimate > 0 && k_estimate < 100
-                                push!(rates_found, k_estimate)
-                            end
-                        end
-                    end
-                end
-            end
-        end
-        
-        # Compute statistics
-        if !isempty(rates_found)
-            rate_stats[j] = (
-                mean = mean(rates_found),
-                median = median(rates_found),
-                std = std(rates_found),
-                min = minimum(rates_found),
-                max = maximum(rates_found),
-                n_transitions = length(rates_found)
-            )
-        else
-            rate_stats[j] = (
-                mean = NaN,
-                median = NaN,
-                std = NaN,
-                min = NaN,
-                max = NaN,
-                n_transitions = 0
-            )
-        end
-    end
-    
-    return rate_stats
-end
+"""
+    print_rate_comparison(result, true_rates, propensity_fn, global_state_space)
 
-# Update your print_rate_comparison to NOT use global extraction
+Print comparison of learned vs true rates.
+"""
 function print_rate_comparison(
     result::OptimizationResult,
     true_rates::Vector{Float64},
     propensity_fn::PropensityFunction,
-    global_state_space=nothing  # Ignore this parameter!
+    global_state_space=nothing  # Ignored
 )
-    println("\n" * "="^60)
+    println("\n" * "="^70)
+    println("AGGREGATED RATE EXTRACTION (All Windows Combined)")
+    println("="^70)
+    
+    # Use aggregated extraction
+    aggregated_stats = extract_rates_aggregated(
+        result.learned_generators, 
+        propensity_fn, 
+        result.inferred_stoich
+    )
+    
+    println("\nReaction | True Rate | Learned (median) | Rel. Error | Total Transitions")
+    println("-"^75)
+    for (j, ν) in enumerate(result.inferred_stoich)
+        stats = aggregated_stats[j]
+        true_k = true_rates[j]
+        
+        if stats.n_transitions > 0
+            rel_error = abs(stats.median - true_k) / true_k * 100
+            println("   R$j    |   $(round(true_k, digits=3))    |      $(round(stats.median, digits=4))      |    $(round(rel_error, digits=1))%   |     $(stats.n_transitions)")
+            println("         |           |   (std=$(round(stats.std, digits=4)))    |           |")
+        else
+            println("   R$j    |   $(round(true_k, digits=3))    |      N/A       |    N/A   |     0")
+        end
+    end
+    
+    println("\n" * "="^70)
     println("RATE COMPARISON: LEARNED vs TRUE")
-    println("="^60)
+    println("="^70)
     
     println("\nTrue rates: $true_rates")
     println("True stoichiometry:")
@@ -202,7 +234,6 @@ function print_rate_comparison(
         println("  R$j: $ν  (k=$(true_rates[j]))")
     end
     
-    # ALWAYS use LOCAL extraction (ignore global_state_space)
     println("\nExtraction method: LOCAL (from learned generators only)")
     
     println("\n" * "-"^60)
@@ -210,7 +241,6 @@ function print_rate_comparison(
     println("-"^60)
     
     for learned_gen in result.learned_generators
-        # Use LOCAL extraction only
         rate_stats = extract_rates(learned_gen, propensity_fn, result.inferred_stoich)
         
         println("\nWindow at t=$(learned_gen.t_start):")
@@ -229,7 +259,7 @@ function print_rate_comparison(
         end
     end
     
-    # Final summary
+    # Final window summary
     if !isempty(result.learned_generators)
         println("\n" * "="^60)
         println("FINAL WINDOW SUMMARY")
@@ -274,13 +304,13 @@ function analyze_generator_properties(learned_gen::LearnedGenerator)
     println("  Nonzeros: $(count(abs.(A) .> 1e-10))")
     println("  Sparsity: $(round(100 * (1 - count(abs.(A) .> 1e-10) / length(A)), digits=1))%")
     
-    # Column sum errors (should be zero)
+    # Column sum errors
     col_sums = vec(sum(A, dims=1))
     println("\nColumn sum errors:")
     println("  Max: $(round(maximum(abs.(col_sums)), sigdigits=3))")
     println("  Mean: $(round(mean(abs.(col_sums)), sigdigits=3))")
     
-    # Diagonal entries (exit rates)
+    # Diagonal entries
     println("\nDiagonal entries (exit rates):")
     diag_entries = [A[i,i] for i in 1:min(size(A,1), 10)]
     for (i, val) in enumerate(diag_entries)
@@ -294,13 +324,4 @@ function analyze_generator_properties(learned_gen::LearnedGenerator)
         p = expv(dt, sparse(A), p0)
         println("  After Δt=$dt: sum(p) = $(round(sum(p), sigdigits=6))")
     end
-end
-
-# Make extract_rates available for LearnedGenerator
-function extract_rates(
-    learned_gen::LearnedGenerator,
-    stoich_vecs::Vector{Vector{Int}},
-    propensity_fn::PropensityFunction
-)
-    extract_rates(learned_gen, propensity_fn, stoich_vecs)
 end
