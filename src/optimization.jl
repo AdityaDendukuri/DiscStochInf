@@ -29,12 +29,13 @@ end
     frechet(A, E)
 
 Compute Fréchet derivative L(A, E) via block exponential.
+Returns (exp(A), L(A, E)).
 """
 function frechet(A::Matrix, E::Matrix)
     n = size(A, 1)
     M = [A E; zeros(n, n) A]
     expM = exponential!(M, ExpMethodHigham2005Base())
-    return expM[1:n, n+1:end]
+    return expM[1:n, 1:n], expM[1:n, n+1:end]
 end
 
 """
@@ -50,13 +51,12 @@ function compute_objective_gradient(θ, data, windows; λ1=1e-8, λ2=1e-6)
     
     # Loop over windows
     for window in windows
-        # Prediction
-        expA = exponential!(Matrix(A * data.dt), ExpMethodHigham2005Base())
-        p_pred = expA * window.p_curr
-        residual = window.p_next - p_pred
+        expA_dt = nothing  # Will be set on first Fréchet call
         
-        # L1 objective
-        obj += sum(abs.(residual))
+        # Prediction and semigroup constraint (computed after first Fréchet)
+        residual = nothing
+        v = nothing
+        ones_vec = ones(size(A, 1))
         
         # Gradient via Fréchet derivatives
         for k in 1:length(data.stoich_basis)
@@ -64,27 +64,40 @@ function compute_objective_gradient(θ, data, windows; λ1=1e-8, λ2=1e-6)
                 idx = (k-1)*data.n_features + f
                 
                 E = build_perturbation(k, f, data)
-                L = frechet(A * data.dt, E * data.dt)
+                expA, L = frechet(A * data.dt, E * data.dt)
                 
+                # On first iteration, compute objective terms
+                if expA_dt === nothing
+                    expA_dt = expA
+                    
+                    # Prediction
+                    p_pred = expA_dt * window.p_curr
+                    residual = window.p_next - p_pred
+                    
+                    # L1 objective
+                    obj += sum(abs.(residual))
+                    
+                    # Semigroup constraint: ||exp(A*dt)*1 - 1||^2
+                    v = expA_dt * ones_vec - ones_vec
+                    obj += λ2 * dot(v, v)
+                end
+                
+                # Prediction gradient
                 grad[idx] -= dot(sign.(residual), L * window.p_curr)
+                
+                # Semigroup gradient: 2*v'*L*1
+                grad[idx] += 2λ2 * dot(v, L * ones_vec)
             end
         end
     end
     
-    # Regularization
+    # Frobenius regularization
     obj += λ1 * norm(A, 2)^2
-    grad .+= 2λ1 * [sum(A .* build_perturbation(k, f, data)) 
-                     for k in 1:length(data.stoich_basis) 
-                     for f in 1:data.n_features]
-    
-    # Semigroup penalty
-    col_sums = sum(A, dims=1)[:]
-    obj += λ2 * sum(col_sums.^2)
     for k in 1:length(data.stoich_basis)
         for f in 1:data.n_features
             idx = (k-1)*data.n_features + f
             E = build_perturbation(k, f, data)
-            grad[idx] += 2λ2 * dot(col_sums, sum(E, dims=1)[:])
+            grad[idx] += 2λ1 * sum(A .* E)
         end
     end
     
@@ -105,7 +118,9 @@ function learn_generator(data, windows; λ1=1e-8, λ2=1e-6, max_iter=200, show_t
     # Optimization
     function fg!(F, G, θ)
         obj, grad = compute_objective_gradient(θ, data, windows; λ1=λ1, λ2=λ2)
-        G !== nothing && copyto!(G, grad)
+        if G !== nothing
+            copyto!(G, grad)
+        end
         return obj
     end
     
