@@ -113,7 +113,7 @@ config = InverseProblemConfig(
     λ_frobenius = 1.0e-6,
     λ_prob_conservation = 0.1,
     dt_snapshot = 0.5,
-    dt_window = 2.0,
+    dt_window = 0.01,
     snapshots_per_window = 10,
     max_windows = 5
 )
