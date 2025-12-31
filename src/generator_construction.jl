@@ -13,23 +13,21 @@ struct InverseProblemData{T<:Real}
     stoich_basis::Vector{Vector{Int}}
     n_features::Int
     dt::T
+    basis::PropensityBasis  # Add this!
     
     # Cached mappings
     state_to_idx::Dict{Vector{Int}, Int}
-    transition_map::Dict{Tuple{Int,Int}, Int}  # (state_idx, reaction_idx) -> target_state_idx
+    transition_map::Dict{Tuple{Int,Int}, Int}
 end
 
-"""
-    build_inverse_problem_data(state_space, stoich_basis, dt; n_features=6)
-
-Build data structure for inverse problem.
-"""
-function build_inverse_problem_data(state_space, stoich_basis, dt; n_features=6)
+function build_inverse_problem_data(state_space, stoich_basis, dt; 
+                                     basis::PropensityBasis=PolynomialBasis{2,2}())
     n_states = length(state_space)
     state_to_idx = Dict(s => i for (i, s) in enumerate(state_space))
     
     # Compute features for each state
-    state_features = compute_state_features(state_space, n_features)
+    state_features = compute_state_features(state_space, basis)
+    n_features = get_n_features(basis)
     
     # Build transition map
     transition_map = Dict{Tuple{Int,Int}, Int}()
@@ -44,7 +42,8 @@ function build_inverse_problem_data(state_space, stoich_basis, dt; n_features=6)
     
     return InverseProblemData(
         state_space, state_features, stoich_basis, 
-        n_features, dt, state_to_idx, transition_map
+        n_features, dt, basis,  # Include basis here
+        state_to_idx, transition_map
     )
 end
 

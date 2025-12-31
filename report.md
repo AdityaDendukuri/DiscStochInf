@@ -338,10 +338,12 @@ $$\mathcal{L}(\mathbf{A}, \mathbf{E}) = \int_0^1 e^{\mathbf{A}s} \mathbf{E} e^{\
 
 **Proof:** By definition:
 
+$$
 \begin{align}
 \mathcal{L}(\mathbf{A}, \mathbf{E}) &= \lim_{\varepsilon \to 0} \frac{e^{\mathbf{A} + \varepsilon \mathbf{E}} - e^{\mathbf{A}}}{\varepsilon} \\
 &= \lim_{\varepsilon \to 0} \frac{1}{\varepsilon} \left(\sum_{k=0}^{\infty} \frac{(\mathbf{A} + \varepsilon \mathbf{E})^k}{k!} - \sum_{k=0}^{\infty} \frac{\mathbf{A}^k}{k!}\right)
 \end{align}
+$$
 
 Using the binomial expansion:
 
@@ -381,7 +383,7 @@ where $\mathbf{L}(t) = \mathcal{L}(\mathbf{A}t, \mathbf{E}t)$.
 $$
 \begin{align}
 \frac{d\mathbf{L}(t)}{dt} &= \frac{d}{dt}\left[t \int_0^1 e^{\mathbf{A}ts} \mathbf{E} e^{\mathbf{A}t(1-s)} \, ds\right] \\
-&= \int_0^1 e^{\mathbf{A}ts} \mathbf{E} e^{\mathbf{A}t(1-s)} \, ds + t \int_0^1 (\mathbf{A}s e^{\mathbf{A}ts} \mathbf{E} e^{\mathbf{A}t(1-s)} + e^{\mathbf{A}ts} \mathbf{E} \mathbf{A}(1-s) e^{\mathbf{A}t(1-s)}) \, ds
+&= \int_0^1 e^{\mathbf{A}ts} \mathbf{E} e^{\mathbf{A}t(1-s)} \, ds \\ &+ t \int_0^1 (\mathbf{A}s e^{\mathbf{A}ts} \mathbf{E} e^{\mathbf{A}t(1-s)} + e^{\mathbf{A}ts} \mathbf{E} \mathbf{A}(1-s) e^{\mathbf{A}t(1-s)}) \, ds
 \end{align}
 $$
 
@@ -403,17 +405,21 @@ $$\frac{d}{dt} e^{\mathbf{M}(t)} = \mathbf{M}(1) e^{\mathbf{M}(t)}, \quad e^{\ma
 
 Writing $e^{\mathbf{M}(t)} = \begin{bmatrix} \mathbf{U}(t) & \mathbf{V}(t) \\ \mathbf{0} & \mathbf{W}(t) \end{bmatrix}$:
 
+$$
 \begin{align}
 \frac{d}{dt}\begin{bmatrix} \mathbf{U} & \mathbf{V} \\ \mathbf{0} & \mathbf{W} \end{bmatrix} &= \begin{bmatrix} \mathbf{A} & \mathbf{E} \\ \mathbf{0} & \mathbf{A} \end{bmatrix} \begin{bmatrix} \mathbf{U} & \mathbf{V} \\ \mathbf{0} & \mathbf{W} \end{bmatrix}
 \end{align}
+$$
 
 This gives three coupled ODEs:
 
+$$
 \begin{align}
 \frac{d\mathbf{U}}{dt} &= \mathbf{A}\mathbf{U}, \quad \mathbf{U}(0) = \mathbf{I} \\
 \frac{d\mathbf{W}}{dt} &= \mathbf{A}\mathbf{W}, \quad \mathbf{W}(0) = \mathbf{I} \\
 \frac{d\mathbf{V}}{dt} &= \mathbf{A}\mathbf{V} + \mathbf{E}\mathbf{W}, \quad \mathbf{V}(0) = \mathbf{0}
 \end{align}
+$$
 
 The first two give $\mathbf{U}(t) = \mathbf{W}(t) = e^{\mathbf{A}t}$. Substituting into the third:
 
@@ -524,12 +530,14 @@ This is the **key gradient formula** for our optimization.
 
 **Frobenius norm gradient:**
 
+$$
 \begin{align}
 \frac{\partial}{\partial \theta_{kf}} \|\mathbf{A}\|_F^2 &= \frac{\partial}{\partial \theta_{kf}} \sum_{i,j} A_{ij}^2 \\
 &= 2\sum_{i,j} A_{ij} \frac{\partial A_{ij}}{\partial \theta_{kf}} \\
 &= 2\sum_{i,j} A_{ij} [\mathbf{E}_{kf}]_{ij} \\
 &= 2 \text{tr}(\mathbf{A}^\top \mathbf{E}_{kf})
 \end{align}
+$$
 
 **Semigroup penalty gradient:**
 
@@ -539,12 +547,14 @@ $$\mathcal{P} = \sum_{j=1}^{n} c_j^2$$
 
 The gradient is:
 
+$$
 \begin{align}
 \frac{\partial \mathcal{P}}{\partial \theta_{kf}} &= 2\sum_{j=1}^{n} c_j \frac{\partial c_j}{\partial \theta_{kf}} \\
 &= 2\sum_{j=1}^{n} c_j \sum_{i=1}^{n} \frac{\partial A_{ij}}{\partial \theta_{kf}} \\
 &= 2\sum_{j=1}^{n} c_j \sum_{i=1}^{n} [\mathbf{E}_{kf}]_{ij} \\
 &= 2 \mathbf{c}^\top (\mathbf{E}_{kf}^\top \mathbf{1})
 \end{align}
+$$
 
 where $\mathbf{c} = \mathbf{A}^\top \mathbf{1}$ is the vector of column sums.
 
@@ -585,12 +595,14 @@ $$\mathcal{K}^t = \mathbf{P}(t)^\top = (e^{\mathbf{A}t})^\top$$
 
 **Proof:** By the law of total expectation:
 
+$$
 \begin{align}
 [\mathcal{K}^t g](\mathbf{x}) &= \sum_{\mathbf{y} \in \mathcal{X}} \mathbb{P}(\mathbf{X}(t) = \mathbf{y} \mid \mathbf{X}(0) = \mathbf{x}) g(\mathbf{y}) \\
 &= \sum_{\mathbf{y} \in \mathcal{X}} P(\mathbf{x}, \mathbf{y}; t) g(\mathbf{y}) \\
 &= \sum_{\mathbf{y} \in \mathcal{X}} [e^{\mathbf{A}t}]_{\mathbf{x},\mathbf{y}} g(\mathbf{y}) \\
 &= [(e^{\mathbf{A}t})^\top \mathbf{g}]_{\mathbf{x}}
 \end{align}
+$$
 
 where we view $g$ as a column vector. $\square$
 
@@ -1375,6 +1387,7 @@ Threads.@threads for k in 1:R*n_f
     E_k = build_perturbation(k, data)
     L_k = frechet(A * dt, E_k * dt)
     ∇J[k] =
+```
 
 This requires computing column sums of both **A** and **E**ₖf, then taking their inner product.
 

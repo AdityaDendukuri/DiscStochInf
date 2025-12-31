@@ -8,6 +8,7 @@ using Catalyst
 using JumpProcesses
 using Random
 
+include("../src/basis_functions.jl")
 include("../src/data_processing.jl")
 include("../src/generator_construction.jl")
 include("../src/optimization.jl")
@@ -35,7 +36,7 @@ n_traj = 100
 trajectories = [solve(jprob, SSAStepper()) for _ in 1:n_traj]
 
 # Compute histograms
-dt = 1.0
+dt = 0.5
 println("\nComputing histograms (dt=$dt)...")
 hists, transitions = compute_histograms(trajectories, dt, t_max=50.0)
 
@@ -55,7 +56,9 @@ println("="^70)
 state_space = build_state_space(hists[1], hists[2])
 println("State space size: $(length(state_space))")
 
-data = build_inverse_problem_data(state_space, stoich_basis, dt, n_features=6)
+basis = PolynomialBasis{2, 2}()  # Quadratic (6 features)
+data = build_inverse_problem_data(state_space, stoich_basis, dt, basis=basis)
+
 window = TimeWindowData(hists[1], hists[2], state_space)
 
 A, θ, converged = learn_generator(data, [window], 

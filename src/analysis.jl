@@ -47,12 +47,24 @@ function evaluate_propensities(θ, data, states)
     results = Dict()
     
     for state in states
-        x, y = state[1], state[2]
-        features = data.n_features == 3 ? [1.0, x, y] : [1.0, x, y, x*y, x^2, y^2]
+        # Evaluate basis at this state
+        features = if state in data.state_space
+            idx = findfirst(==(state), data.state_space)
+            data.state_features[:, idx]
+        else
+            # State not in training set, evaluate basis directly
+            evaluate(data.basis, state)
+        end
         
         props = zeros(n_reactions)
         for k in 1:n_reactions
             θ_k = θ[(k-1)*data.n_features + 1 : k*data.n_features]
+            
+            # Check dimension match
+            if length(θ_k) != length(features)
+                error("Parameter dimension ($(length(θ_k))) doesn't match basis dimension ($(length(features)))")
+            end
+            
             props[k] = max(0.0, dot(θ_k, features))
         end
         
