@@ -1,0 +1,205 @@
+# File: examples/michaelis_menten.jl
+
+"""
+Michaelis-Menten enzyme kinetics inverse problem.
+
+Reaction scheme:
+    E + S ⇌ ES → E + P
+    
+where:
+- E: Enzyme
+- S: Substrate  
+- ES: Enzyme-substrate complex
+- P: Product
+
+Reactions:
+1. E + S → ES   (rate k₁)
+2. ES → E + S   (rate k₋₁)
+3. ES → E + P   (rate k₂)
+"""
+
+using Catalyst
+using JumpProcesses
+using Random
+using Plots
+using LinearAlgebra
+
+# Set plotting defaults for SIAM style
+default(fontfamily="Computer Modern",
+        linewidth=1,
+        framestyle=:box,
+        grid=false,
+        foreground_color_legend=nothing,
+        background_color_legend=nothing)
+
+include("../src/basis_functions.jl")
+include("../src/data_processing.jl")
+include("../src/generator_construction.jl")
+include("../src/optimization.jl")
+include("../src/analysis.jl")
+include("../src/visualization.jl")
+
+# Define MM model (matching your notation)
+mm_model = @reaction_network begin
+    kB, S + E --> SE
+    kD, SE --> S + E  
+    kP, SE --> P + E
+end
+
+# Parameters that WORK (from your image)
+kB_true = 0.01
+kD_true = 0.1
+kP_true = 0.1
+
+p = [:kB => kB_true, :kD => kD_true, :kP => kP_true]
+
+# Initial conditions (assume same as Brusselator scale)
+S0 = 100  # Substrate
+E0 = 10   # Enzyme
+u0 = [:S => S0, :E => E0, :SE => 0, :P => 0]
+
+println("="^70)
+println("MICHAELIS-MENTEN CME INVERSE PROBLEM")
+println("="^70)
+println("\nTrue parameters:")
+println("  kB (binding):      $kB_true")
+println("  kD (dissociation): $kD_true")
+println("  kP (catalysis):    $kP_true")
+println("\nInitial conditions:")
+println("  S₀ = $S0, E₀ = $E0, SE₀ = 0, P₀ = 0")
+
+# Estimate timescales
+tau_fast = 1.0 / (kB_true * S0 * E0)
+tau_slow = 1.0 / (kD_true + kP_true)
+println("\nEstimated timescales:")
+println("  Fast (binding):   τ ≈ $(round(tau_fast, digits=3)) s")
+println("  Slow (unbind/cat): τ ≈ $(round(tau_slow, digits=2)) s")
+
+# Generate trajectories
+Random.seed!(456)
+dprob = DiscreteProblem(mm_model, u0, (0.0, 200.0), p)  # Match your T=200
+jprob = JumpProblem(mm_model, dprob, Direct())
+
+println("\nGenerating trajectories...")
+n_traj = 500
+trajectories = [solve(jprob, SSAStepper()) for _ in 1:n_traj]
+
+println("Done! Generated $n_traj trajectories")
+
+# Histogram dt: choose ~10x slower than fast timescale
+dt = 1.0  # About 10x the fast timescale
+println("\nComputing histograms (dt=$dt s)...")
+hists, transitions = compute_histograms(trajectories, dt, t_max=200.0)
+
+println("Generated $(length(hists)) histogram snapshots")
+
+# Extract stoichiometry and filter null reactions
+println("\nExtracting stoichiometry...")
+stoich_basis_raw = extract_stoichiometry(transitions, min_count=50)
+stoich_basis = filter(nu -> any(nu .!= 0), stoich_basis_raw)
+
+println("Found $(length(stoich_basis)) reactions:")
+for (i, nu) in enumerate(stoich_basis)
+    println("  Reaction $i: $nu")
+end
+
+if length(stoich_basis) != 3
+    @warn "Expected 3 reactions, got $(length(stoich_basis))"
+end
+
+# Use LINEAR basis (5 features: 1, S, E, SE, P)
+basis = PolynomialBasis{4, 1}()
+n_features = get_n_features(basis)
+n_params = length(stoich_basis) * n_features
+
+println("\nBasis: Linear ($(n_features) features)")
+println("Parameters: $(length(stoich_basis)) reactions × $n_features = $n_params")
+
+# Learn generators for 6 windows
+println("\n" * "="^70)
+println("Learning generators for 6 time windows")
+println("="^70)
+
+n_windows = 6
+generators = []
+parameters = []
+learned_data = []
+state_spaces = []
+window_pairs = []
+
+for w in 1:n_windows
+    println("\n" * "-"^70)
+    println("WINDOW $w → $(w+1)")
+    println("-"^70)
+    
+    state_space = build_state_space_fsp(hists[w], hists[w+1])
+    println("State space size: $(length(state_space))")
+    
+    if length(state_space) < n_params
+        @warn "Underdetermined: $(length(state_space)) states < $n_params parameters"
+    end
+    
+    # Build problem
+    data = build_inverse_problem_data(state_space, stoich_basis, dt, basis=basis)
+    window = TimeWindowData(hists[w], hists[w+1], state_space)
+    
+    # Learn with moderate regularization
+    println("\nOptimizing...")
+    # In michaelis_menten.jl
+
+
+
+# Learn with adjoint method
+A, θ, converged = learn_generator(data, [window], 
+                                   λ1=1e-6, λ2=1e-12, λ3=1e-4,
+                                   max_iter=500,
+                                   method=:adjoint)  # Use adjoint!
+
+    println("\nResults:")
+    println("  Converged: $converged")
+    println("  ||A||: $(round(norm(A), digits=2))")
+    
+    pred_error = compute_prediction_error(A, window, dt)
+    println("  Prediction error: $(round(pred_error, digits=4))")
+    
+    col_sums = sum(A, dims=1)[:]
+    println("  Max |col sum|: $(round(maximum(abs.(col_sums)), digits=10))")
+    
+    # Store
+    push!(generators, A)
+    push!(parameters, θ)
+    push!(learned_data, data)
+    push!(state_spaces, state_space)
+    push!(window_pairs, w)
+end
+
+# Create visualization
+println("\n" * "="^70)
+println("Creating visualization")
+println("="^70)
+
+# For MM, plot S, SE, P (E is roughly conserved)
+p_full = create_full_visualization(trajectories, generators, state_spaces,
+                                   window_pairs, dt, 
+                                   n_windows=n_windows,
+                                   species_to_plot=[1, 3, 4])  # S, SE, P
+
+display(p_full)
+savefig(p_full, "michaelis_menten_full_visualization.png")
+savefig(p_full, "michaelis_menten_full_visualization.pdf")
+
+# Summary
+println("\n" * "="^70)
+println("Summary")
+println("="^70)
+
+for (w, A, ss) in zip(window_pairs, generators, state_spaces)
+    println("\nWindow $w→$(w+1):")
+    println("  States: $(length(ss))")
+    println("  ||A||: $(round(norm(A), digits=2))")
+    println("  Sparsity: $(round(100*(1 - count(abs.(A) .> 1e-10)/length(A)), digits=1))%")
+end
+
+println("\nDone! Saved visualization.")
+println("  - michaelis_menten_full_visualization.png")
+println("  - michaelis_menten_full_visualization.pdf")

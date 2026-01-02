@@ -105,25 +105,38 @@ function build_generator(θ, data::InverseProblemData)
 end
 
 """
-    build_perturbation(k, f, data::InverseProblemData)
+    build_perturbation(k, f, data)
 
-Build perturbation matrix E_kf for parameter θ_kf.
+Build perturbation matrix E_kf = ∂A/∂θ_kf.
+
+CRITICAL: Always include diagonal (exit) terms, even if target states 
+are outside the truncated state space!
 """
-function build_perturbation(k, f, data::InverseProblemData)
+function build_perturbation(k::Int, f::Int, data::InverseProblemData)
+    nu = data.stoich_basis[k]
     n = length(data.state_space)
+    
     E = zeros(n, n)
     
-    # Off-diagonal: feature value if transition exists
-    for (i, state) in enumerate(data.state_space)
-        if haskey(data.transition_map, (i, k))
-            j = data.transition_map[(i, k)]
-            E[i, j] = data.state_features[f, j]
+    for (i, state_from) in enumerate(data.state_space)
+        # Evaluate basis function at source state
+        basis_val = evaluate(data.basis, state_from)[f]
+        
+        # Target state
+        state_to = state_from + nu
+        
+        # ALWAYS subtract from diagonal (exit rate)
+        E[i, i] -= basis_val
+        
+        # Add to off-diagonal ONLY if target state is in truncated space
+        j = findfirst(==(state_to), data.state_space)
+        
+        if j !== nothing
+            E[j, i] += basis_val
         end
-    end
-    
-    # Diagonal: negative column sum
-    for j in 1:n
-        E[j, j] = -sum(E[:, j])
+        # If j === nothing, this is a "boundary" transition that exits 
+        # the truncated state space. The diagonal still needs to be 
+        # decremented to account for probability leaving!
     end
     
     return E
